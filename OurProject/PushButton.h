@@ -9,6 +9,7 @@ class PushButton :
 public:
     PushButton(const std::string& text="BUTTON",int x = 0, int y = 0, int w = 200, int h = 45);
     void show() override;
+    void show2();
 
 private:
     std::string m_text;

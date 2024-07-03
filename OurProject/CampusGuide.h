@@ -38,12 +38,15 @@ public:
 
 	void DrawArrow();
 
+	void ShowPic();
 
 	void drawbackground();
 
 	void eventLoop();
 
 	void placeSB(string s,int x,int y);
+
+	void reminder();
 
 private:
 	IMAGE m_bk;

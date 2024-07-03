@@ -30,7 +30,27 @@ CampusGuide::CampusGuide()
 	}
 
 	//景点按钮初始化
-	placeSB("武汉大学牌坊", 90, 560);
+	placeSB("离校打车点1", 20, 180);//0   标记中点（x+52，y+10）
+	placeSB("计算机学院", 68, 275);//1
+	placeSB("卓尔体育馆", 88, 335);//2
+	placeSB("武汉大学牌坊", 90, 560);//3
+	placeSB("武大附小", 165, 60);//4
+	placeSB("桂园操场",230 , 300);//5
+	placeSB("总图书馆", 265, 425);//6
+	placeSB("万林博物馆", 330, 370);//7
+	placeSB("樱花城堡", 320, 175);//8
+	placeSB("樱花大道", 410, 240);//9
+	placeSB("水生研究所", 370,80);//10
+	placeSB("居民区", 390,595);//11
+	placeSB("九一二操场", 460, 320);//12
+	placeSB("工学部", 550, 60);//13
+	placeSB("珞珈山", 560, 470);//14
+	placeSB("梅园", 580, 590);//15
+	placeSB("法学院", 680, 310);//16
+	placeSB("东湖", 830, 80);//
+	placeSB("枫园", 800, 340);//
+	placeSB("离校打车点2", 850, 540);//
+
 }
 
 
@@ -80,10 +100,10 @@ void CampusGuide::run()
 				}
 				break;
 			case CampusGuide::SHOW:
-				ShowMap();
-
+				ShowPic();
+				break;
 			case CampusGuide::SEARCH:
-
+				ShowMap();
 				break;
 			case CampusGuide::FIND:
 
@@ -92,6 +112,7 @@ void CampusGuide::run()
 				//saveFile("assets/flights");
 				//saveFile02("assets/customers");
 				Window::beginDraw();
+				settextcolor(RGB(255, 120, 0));
 				settextstyle(80, 40, "Bulter");
 				outtextxy(200, 150, "SEE YOU AGAIN!");
 				Window::flushDraw();
@@ -115,7 +136,7 @@ int CampusGuide::menu()
 	int tx = (Window::width() - textwidth(str)) / 2;
 	int ty = 40;
 	outtextxy(tx, ty, str);
-
+	::settextstyle(20, 0, "楷体", 0, 0, 100, 0, 0, 0);
 	for (int i = 0; i < menu_btns.size(); i++)
 	{
 		menu_btns[i]->show();
@@ -131,22 +152,24 @@ int CampusGuide::menu()
 
 int CampusGuide::ShowMap()
 {
+	reminder();
 	if (flag != 2)
 	{
 		::loadimage(&m_bk, "assets/map1.JPEG", Window::width(), Window::height());
 		
 		flag = 2;
 	}
-	
+	//::settextstyle(20, 0, "楷体", 0, 0, 100, 0, 0, 0);
 	for (int i = 0; i < sight_btns.size(); i++)
 	{
-		sight_btns[i]->show();
+		sight_btns[i]->show2();
 		sight_btns[i]->event();
 		if (sight_btns[i]->isClicked())
 		{
 			return i;
 		}
 	}
+	return -1;
 
 }
 
@@ -154,6 +177,16 @@ int CampusGuide::ShowMap()
 
 
 
+
+void CampusGuide::ShowPic()
+{
+	reminder();
+	if (flag != 3)
+	{
+		::loadimage(&m_bk, "assets/overview.JPEG", Window::width(), Window::height());
+		flag = 3;
+	}
+}
 
 void CampusGuide::drawbackground()
 {
@@ -175,6 +208,13 @@ void CampusGuide::placeSB(string s, int x, int y)//画景点按钮
 {
 	PushButton* p = new PushButton(s);
 	sight_btns.emplace_back(p);
-	p->setFixedSize(120, 30);
+	p->setFixedSize(104, 23);
 	p->move(x, y);
+}
+
+void CampusGuide::reminder()
+{
+	settextcolor(RGB(255, 120, 0));
+	settextstyle(30, 0, "微软雅黑", 0, 0, 880, 0, 0, 0);
+	outtextxy(0, 0, "按Esc键返回上一级...");
 }
