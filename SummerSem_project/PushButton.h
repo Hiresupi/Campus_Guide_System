@@ -11,7 +11,7 @@ public:
     void show() override;
     void show2();
 
-private:
+
     std::string m_text;
 };
 
