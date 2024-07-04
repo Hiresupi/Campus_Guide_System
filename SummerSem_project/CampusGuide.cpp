@@ -115,7 +115,7 @@ void CampusGuide::run()
 				//fstream fout("assets/sights.txt", ios::out);
 				//for (int i = 0; i < sight_btns.size(); i++)
 				//{
-				//	fout << sight_btns[i]->m_text << " " << sight_btns[i]->x() << " " << sight_btns[i]->y() <<" "<<i<< endl;
+				//	fout << sight_btns[i]->m_text <<"	" << sight_btns[i]->x() << "	" << sight_btns[i]->y() << "	" << i << endl;
 				//}
 				Window::beginDraw();
 				settextcolor(RGB(255, 120, 0));

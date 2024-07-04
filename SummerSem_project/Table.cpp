@@ -40,11 +40,13 @@ void Table::setHeader(const std::string& header)
 	m_tw = ::textwidth("12月12日12:12");
 	m_th = ::textheight("m_header.c_str()");
 
-	m_gridW=::textwidth("12月12日12:12")+2;//格子宽度
-	m_gridH=::textheight("m_header.c_str()")+10;//格子高度
+	WidthSupply = 2;
+	m_gridW=::textwidth("12月12日12:12")+WidthSupply;//格子宽度
+	HeightSupply = 40;
+	m_gridH=::textheight("m_header.c_str()")+HeightSupply;//格子高度,40是额外增高的，后续会用到
 
 	m_w = m_gridW * m_cols;
-	m_h = m_gridH *( m_rows+2);
+	m_h = m_gridH *( m_rows);
 
 	middlePut = (Window::width() - m_gridW * m_cols) / 2;//框的居中x坐标
 
@@ -67,7 +69,7 @@ void Table::show()
 void Table::drawTableGrid()
 {
 	//画横线
-	setlinecolor(RGB(195, 132, 237));
+	setlinecolor(RGB(222, 93, 93));
 	for (int i = 0; i < m_rows + 1; i++)
 	{
 		line(m_x, m_y + i * m_gridH, m_x + m_cols * m_gridW , m_y + i * m_gridH);
@@ -88,7 +90,7 @@ void Table::drawTableBottom()
 	static bool flag = false;
 	if (!flag)
 	{
-		m_preBtn->move(m_x, m_h + 100);
+		m_preBtn->move(m_x, m_h + m_y+10);
 		m_nextBtn->move(m_preBtn->x() + m_preBtn->width(), m_preBtn->y());
 		m_firstBtn->move(m_nextBtn->x() + m_nextBtn->width(), m_nextBtn->y());
 		m_lastBtn->move(m_firstBtn->x() + m_firstBtn->width(), m_firstBtn->y());
@@ -108,7 +110,7 @@ void Table::drawTableBottom()
 
 void Table::drawTableData()
 {
-	::settextcolor(RGB(53, 225, 235));
+	::settextcolor(RGB(222, 95, 50));
 	::settextstyle(20, 0, "宋体", 0, 0, 800, 0, 0, 0);
 
 	//防止越界
@@ -132,7 +134,7 @@ void Table::drawTableData()
 		for (size_t k = 0; k < line_data.size(); k++) //列
 		{
 			int tx = m_x + k * m_gridW+(m_gridW-::textwidth(line_data[k].c_str()))/2 ;
-			int ty = m_y +r* m_gridH+5;
+			int ty = m_y +r* m_gridH+HeightSupply/2;//40的一半
 			outtextxy(tx, ty, line_data[k].c_str());
 		}
 	}
@@ -140,10 +142,10 @@ void Table::drawTableData()
 void Table::drawHeader() 
 {
 	setlinestyle(PS_SOLID, 2);
-	rectangle(m_x, m_y - 30, m_x + m_w, m_y);
+	rectangle(m_x, m_y - m_gridH, m_x + m_w, m_y);
 	for (size_t i = 0; i < m_cols; i++)
 	{
-		line(m_x + i * m_gridW, m_y - 30, m_x + i * m_gridW, m_y);
+		line(m_x + i * m_gridW, m_y - m_gridH, m_x + i * m_gridW, m_y);
 	}
 	setlinestyle(PS_SOLID, 1);
 	//分割表头
@@ -151,12 +153,12 @@ void Table::drawHeader()
 	for (size_t i = 0; i < headers.size(); i++)
 	{
 		int spaceH = (m_gridW - textwidth(headers[i].c_str())) / 2;
-		int spaceV = (30 - textheight(headers[i].c_str())) / 2;
+		int spaceV = (m_gridH - textheight(headers[i].c_str())) / 2;
 		outtextxy(m_x + i * m_gridW + spaceH, m_y - m_gridH + spaceV, headers[i].c_str());
 	}
 }
 
-std::vector<std::string> Table::split(std::string str, char separator1)
+std::vector<std::string> Table::split(std::string str, char separator1)//默认分隔符为制表符
 {
 	
 	std::vector<std::string> res;

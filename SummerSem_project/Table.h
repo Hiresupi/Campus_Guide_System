@@ -51,7 +51,8 @@ private:
     std::string m_header;
     std::vector<std::string>m_datas;
 
-   
+    int HeightSupply;
+    int WidthSupply;
 
     //分页处理数据
     int m_curPage;
