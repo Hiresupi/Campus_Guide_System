@@ -14,10 +14,10 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="头文件\easyXtool">
-      <UniqueIdentifier>{acd68598-be66-4344-af51-081cac70ec28}</UniqueIdentifier>
+      <UniqueIdentifier>{ffbdcb3e-b158-4dd8-8f2d-35c3c8a58fa4}</UniqueIdentifier>
     </Filter>
     <Filter Include="源文件\easyXtool">
-      <UniqueIdentifier>{88853339-a435-44e8-8253-0620aaf0ea03}</UniqueIdentifier>
+      <UniqueIdentifier>{3c264b1f-4711-4915-b612-617d7f42365b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -27,49 +27,49 @@
     <ClCompile Include="CampusGuide.h">
       <Filter>头文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\真正的大作业——飞机订票系统\BasicWidget.cpp">
-      <Filter>源文件\easyXtool</Filter>
-    </ClCompile>
-    <ClCompile Include="..\真正的大作业——飞机订票系统\LineEdit.cpp">
-      <Filter>源文件\easyXtool</Filter>
-    </ClCompile>
-    <ClCompile Include="..\真正的大作业——飞机订票系统\Window.cpp">
-      <Filter>源文件\easyXtool</Filter>
-    </ClCompile>
-    <ClCompile Include="..\真正的大作业——飞机订票系统\PushButton.cpp">
-      <Filter>源文件\easyXtool</Filter>
-    </ClCompile>
-    <ClCompile Include="..\真正的大作业——飞机订票系统\Table.cpp">
-      <Filter>源文件\easyXtool</Filter>
-    </ClCompile>
     <ClCompile Include="CampusGuide.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Sights.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="BasicWidget.cpp">
+      <Filter>源文件\easyXtool</Filter>
+    </ClCompile>
+    <ClCompile Include="LineEdit.cpp">
+      <Filter>源文件\easyXtool</Filter>
+    </ClCompile>
+    <ClCompile Include="PushButton.cpp">
+      <Filter>源文件\easyXtool</Filter>
+    </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>源文件\easyXtool</Filter>
+    </ClCompile>
+    <ClCompile Include="Table.cpp">
+      <Filter>源文件\easyXtool</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\真正的大作业——飞机订票系统\BasicWidget.h">
-      <Filter>头文件\easyXtool</Filter>
-    </ClInclude>
-    <ClInclude Include="..\真正的大作业——飞机订票系统\LineEdit.h">
-      <Filter>头文件\easyXtool</Filter>
-    </ClInclude>
-    <ClInclude Include="..\真正的大作业——飞机订票系统\Table.h">
-      <Filter>头文件\easyXtool</Filter>
-    </ClInclude>
-    <ClInclude Include="..\真正的大作业——飞机订票系统\PushButton.h">
-      <Filter>头文件\easyXtool</Filter>
-    </ClInclude>
-    <ClInclude Include="..\真正的大作业——飞机订票系统\configure.h">
-      <Filter>头文件\easyXtool</Filter>
-    </ClInclude>
-    <ClInclude Include="..\真正的大作业——飞机订票系统\Window.h">
-      <Filter>头文件\easyXtool</Filter>
-    </ClInclude>
     <ClInclude Include="Sights.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicWidget.h">
+      <Filter>头文件\easyXtool</Filter>
+    </ClInclude>
+    <ClInclude Include="PushButton.h">
+      <Filter>头文件\easyXtool</Filter>
+    </ClInclude>
+    <ClInclude Include="LineEdit.h">
+      <Filter>头文件\easyXtool</Filter>
+    </ClInclude>
+    <ClInclude Include="Table.h">
+      <Filter>头文件\easyXtool</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.h">
+      <Filter>头文件\easyXtool</Filter>
+    </ClInclude>
+    <ClInclude Include="configure.h">
+      <Filter>头文件\easyXtool</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
