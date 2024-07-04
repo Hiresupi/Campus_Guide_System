@@ -127,24 +127,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\真正的大作业——飞机订票系统\BasicWidget.cpp" />
-    <ClCompile Include="..\真正的大作业——飞机订票系统\LineEdit.cpp" />
-    <ClCompile Include="..\真正的大作业——飞机订票系统\PushButton.cpp" />
-    <ClCompile Include="..\真正的大作业——飞机订票系统\Table.cpp" />
-    <ClCompile Include="..\真正的大作业——飞机订票系统\Window.cpp" />
+    <ClCompile Include="BasicWidget.cpp" />
     <ClCompile Include="CampusGuide.cpp" />
     <ClCompile Include="CampusGuide.h" />
+    <ClCompile Include="LineEdit.cpp" />
+    <ClCompile Include="PushButton.cpp" />
     <ClCompile Include="Sights.cpp" />
+    <ClCompile Include="Table.cpp" />
+    <ClCompile Include="Window.cpp" />
     <ClCompile Include="校园导游.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\真正的大作业——飞机订票系统\BasicWidget.h" />
-    <ClInclude Include="..\真正的大作业——飞机订票系统\configure.h" />
-    <ClInclude Include="..\真正的大作业——飞机订票系统\LineEdit.h" />
-    <ClInclude Include="..\真正的大作业——飞机订票系统\PushButton.h" />
-    <ClInclude Include="..\真正的大作业——飞机订票系统\Table.h" />
-    <ClInclude Include="..\真正的大作业——飞机订票系统\Window.h" />
+    <ClInclude Include="BasicWidget.h" />
+    <ClInclude Include="configure.h" />
+    <ClInclude Include="LineEdit.h" />
+    <ClInclude Include="PushButton.h" />
     <ClInclude Include="Sights.h" />
+    <ClInclude Include="Table.h" />
+    <ClInclude Include="Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

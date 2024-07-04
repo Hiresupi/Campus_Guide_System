@@ -47,9 +47,9 @@ CampusGuide::CampusGuide()
 	placeSB("珞珈山", 560, 470);//14
 	placeSB("梅园", 580, 590);//15
 	placeSB("法学院", 680, 310);//16
-	placeSB("东湖", 830, 80);//
-	placeSB("枫园", 800, 340);//
-	placeSB("离校打车点2", 850, 540);//
+	placeSB("东湖", 830, 80);//17
+	placeSB("枫园", 800, 340);//18
+	placeSB("离校打车点2", 850, 540);//19 共20个sights
 
 }
 
@@ -106,7 +106,7 @@ void CampusGuide::run()
 				ShowMap();
 				break;
 			case CampusGuide::FIND:
-
+				ShowMap();
 				break;
 			case CampusGuide::EXIT:
 				//saveFile("assets/flights");
