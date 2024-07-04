@@ -51,6 +51,7 @@ CampusGuide::CampusGuide()
 	placeSB("枫园", 800, 340);//18
 	placeSB("离校打车点2", 850, 540);//19 共20个sights
 
+
 }
 
 
@@ -111,6 +112,11 @@ void CampusGuide::run()
 			case CampusGuide::EXIT:
 				//saveFile("assets/flights");
 				//saveFile02("assets/customers");
+				//fstream fout("assets/sights.txt", ios::out);
+				//for (int i = 0; i < sight_btns.size(); i++)
+				//{
+				//	fout << sight_btns[i]->m_text << " " << sight_btns[i]->x() << " " << sight_btns[i]->y() <<" "<<i<< endl;
+				//}
 				Window::beginDraw();
 				settextcolor(RGB(255, 120, 0));
 				settextstyle(80, 40, "Bulter");
