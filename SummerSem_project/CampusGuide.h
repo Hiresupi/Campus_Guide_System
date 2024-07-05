@@ -53,6 +53,7 @@ private:
 	int flag = 0;//标识背景图片状态，减少加载背景次数，更流畅
 	vector<unique_ptr<PushButton>>menu_btns;
 	vector<unique_ptr<PushButton>>sight_btns;
+	int SBheight = 104; int SBwidth = 23;
 
 
 
