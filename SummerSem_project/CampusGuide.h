@@ -28,6 +28,10 @@ public:
 	int menu();
 	void run();
 
+	void ShowPic();
+
+	bool searchNshow();
+
 	int ShowMap();
 
 	void Showinfo(Sights&s);
@@ -38,7 +42,7 @@ public:
 
 	void DrawArrow();
 
-	void ShowPic();
+
 
 	void drawbackground();
 
@@ -55,6 +59,20 @@ private:
 	vector<unique_ptr<PushButton>>sight_btns;
 	int SBheight = 104; int SBwidth = 23;
 
+	//景点概览
+	unique_ptr<PushButton>SightSearchBtn;
+	unique_ptr <LineEdit> SightEdit;
+
+	//查看附近厕所/食堂:按钮、表格
+	unique_ptr<PushButton> CafeBtn;
+	unique_ptr<PushButton> ToiletBtn;
+	unique_ptr<Table>CafeTable;
+	unique_ptr<Table>ToiletTable;
+
+
+	//查询线路
+	unique_ptr<PushButton>ShortBtn;
+	unique_ptr<PushButton>AllBtn;
 
 
 

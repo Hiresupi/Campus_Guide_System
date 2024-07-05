@@ -8,7 +8,7 @@ void LineEdit::show()
 	setfillcolor(cur_c);
 	::fillroundrect(m_x, m_y, m_x + m_w, m_y + m_h, 20, 20);
 
-	settextcolor(RGB(222, 130, 218));
+	settextcolor(RGB(127, 181, 114));
 	settextstyle(30, 0, "Î¢ÈíÑÅºÚ", 0, 0, 880, 0, 0, 0);
 	//¾ÓÖĞÏÔÊ¾ÎÄ×Ö
 	int tx = m_x + (m_w - textwidth(m_text.c_str())) / 2;
