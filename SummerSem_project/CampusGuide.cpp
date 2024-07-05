@@ -30,7 +30,7 @@ CampusGuide::CampusGuide()
 	}
 
 	//景点按钮初始化
-	placeSB("离校打车点1", 20, 180);//0   标记中点（x+52，y+10）
+	placeSB("离校打车点1", 20, 180);//0   画线条用的标记中点坐标为（x+SBheight/2，y+SBwidth/2）
 	placeSB("计算机学院", 68, 275);//1
 	placeSB("卓尔体育馆", 88, 335);//2
 	placeSB("武汉大学牌坊", 90, 560);//3
@@ -181,9 +181,6 @@ int CampusGuide::ShowMap()
 
 
 
-
-
-
 void CampusGuide::ShowPic()
 {
 	reminder();
@@ -214,7 +211,7 @@ void CampusGuide::placeSB(string s, int x, int y)//画景点按钮
 {
 	PushButton* p = new PushButton(s);
 	sight_btns.emplace_back(p);
-	p->setFixedSize(104, 23);
+	p->setFixedSize(SBheight, SBwidth);
 	p->move(x, y);
 }
 
