@@ -13,7 +13,7 @@ CampusGuide::CampusGuide()
 	::loadimage(&m_bk, "assets/WHU3.JPEG", Window::width(), Window::height());
 
 	//主界面按钮初始化
-	menu_btns.emplace_back(new PushButton("校园全貌一览"));
+	menu_btns.emplace_back(new PushButton("热门景点速查"));
 	menu_btns.emplace_back(new PushButton("景点查询"));
 	menu_btns.emplace_back(new PushButton("路线查询"));
 	menu_btns.emplace_back(new PushButton("退出"));
@@ -52,6 +52,13 @@ CampusGuide::CampusGuide()
 	placeSB("离校打车点2", 850, 540);//19 共20个sights
 
 
+	//查询部件初始化
+	SightSearchBtn.reset(new PushButton("搜索", 700, 30));
+	SightEdit.reset(new LineEdit(100, 30, 600, 45));
+	SightEdit->setTitle("请输入景点全称（如：武汉大学牌坊）");
+	SightEdit->setPrompt("武汉大学牌坊");
+
+
 }
 
 
@@ -64,6 +71,7 @@ void CampusGuide::run()
 		int choice = 666;
 		//const int add = 1;
 		//const int amend = 2;
+		bool saySorry = false;
 
 		while (true)
 		{
@@ -81,6 +89,7 @@ void CampusGuide::run()
 					if (Window::getMsg().vkcode == VK_ESCAPE)
 					{
 						op = MENU;
+						SightEdit->setText("");
 					}
 					break;
 				default://鼠标操作
@@ -97,11 +106,12 @@ void CampusGuide::run()
 				if (flag!=1)
 				{
 					flag = 1;
-					::loadimage(&m_bk, "assets/WHU3.JPEG", Window::width(), Window::height());
+					::loadimage(&m_bk, "assets/WHU.JPEG", Window::width(), Window::height());
 				}
 				break;
 			case CampusGuide::SHOW:
 				ShowPic();
+				saySorry=searchNshow();
 				break;
 			case CampusGuide::SEARCH:
 				ShowMap();
@@ -127,6 +137,11 @@ void CampusGuide::run()
 				break;
 			}
 			Window::flushDraw();
+			if (saySorry)
+			{
+				Sleep(2000);
+				saySorry = false;
+			}
 			Window::getMsg().message = 0;
 		}
 
@@ -186,9 +201,63 @@ void CampusGuide::ShowPic()
 	reminder();
 	if (flag != 3)
 	{
-		::loadimage(&m_bk, "assets/overview.JPEG", Window::width(), Window::height());
+		::loadimage(&m_bk, "assets/WHU1.JPEG", Window::width(), Window::height());
 		flag = 3;
 	}
+}
+
+bool CampusGuide::searchNshow()
+{
+	SightSearchBtn->show();
+	SightEdit->show();
+	auto str = SightEdit->text();
+	if(SightSearchBtn->isClicked()&&!str.empty())
+	if (str == "樱花城堡"||str=="樱顶")
+	{
+		::loadimage(&m_bk, "assets/pics/樱花城堡.JPG", Window::width(), Window::height());
+	}
+	else if(str == "樱花大道")
+	{
+		::loadimage(&m_bk, "assets/pics/樱花大道.JPG", Window::width(), Window::height());
+	}
+	else if (str == "总图书馆"||str=="图书馆")
+	{
+		::loadimage(&m_bk, "assets/pics/总图书馆.JPG", Window::width(), Window::height());
+	}
+	else if (str == "计算机学院")
+	{
+		::loadimage(&m_bk, "assets/pics/计算机学院.JPG", Window::width(), Window::height());
+	}
+	else if (str == "万林博物馆")
+	{
+		::loadimage(&m_bk, "assets/pics/万林博物馆.JPG", Window::width(), Window::height());
+	}
+	else if (str == "武汉大学牌坊")
+	{
+		::loadimage(&m_bk, "assets/pics/牌坊.JPG", Window::width(), Window::height());
+	}
+	else if (str == "九一二操场"||str=="912操场")
+	{
+		::loadimage(&m_bk, "assets/pics/912.JPG", Window::width(), Window::height());
+	}
+	else if (str == "东湖")
+	{
+		::loadimage(&m_bk, "assets/pics/东湖.JPG", Window::width(), Window::height());
+	}
+	else if (str == "卓尔体育馆")
+	{
+		::loadimage(&m_bk, "assets/pics/卓尔体育馆.JPG", Window::width(), Window::height());
+	}
+	else if(str!="")
+	{
+		string str1("抱歉，请检查输入或当前暂无该景点信息!");
+		settextcolor(RGB(221,255,148));
+		settextstyle(40, 0, "宋体", 0, 0, 800, 0, 0, 0);
+		outtextxy((Window::width() - textwidth(str1.c_str()))/2,
+			(Window::height()-textheight(str1.c_str()))/2, str1.c_str());
+		return true;
+	}
+	return false;
 }
 
 void CampusGuide::drawbackground()
@@ -199,11 +268,22 @@ void CampusGuide::drawbackground()
 
 void CampusGuide::eventLoop()
 {
+	//调用各个部件的event函数
 	for (int i = 0; i < sight_btns.size(); i++)
 	{
 		sight_btns[i]->event();
 	}
-	//调用event()函数
+	SightSearchBtn->event();
+	SightEdit->event();
+
+	//CafeBtn->event();
+	//ToiletBtn->event();
+	//CafeTable->event();
+	//ToiletTable->event();
+
+
+	//ShortBtn->event();
+	//AllBtn->event();
 }
 
 
@@ -217,7 +297,7 @@ void CampusGuide::placeSB(string s, int x, int y)//画景点按钮
 
 void CampusGuide::reminder()
 {
-	settextcolor(RGB(255, 120, 0));
+	settextcolor(RGB(0, 176,32));
 	settextstyle(30, 0, "微软雅黑", 0, 0, 880, 0, 0, 0);
 	outtextxy(0, 0, "按Esc键返回上一级...");
 }
