@@ -17,6 +17,7 @@ public:
 		SHOW,
 		SEARCH,
 		FIND,
+		MODIFY,
 		EXIT,
 		MENU = 666
 	};
@@ -34,7 +35,7 @@ public:
 
 	int ShowMap();
 
-	void Showinfo(Sights&s);
+	void ShowInfo(Sights&s);
 
 	void FindAllRoute();
 

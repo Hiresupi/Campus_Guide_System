@@ -16,6 +16,7 @@ CampusGuide::CampusGuide()
 	menu_btns.emplace_back(new PushButton("热门景点速查"));
 	menu_btns.emplace_back(new PushButton("景点查询"));
 	menu_btns.emplace_back(new PushButton("路线查询"));
+	menu_btns.emplace_back(new PushButton("管理员入口"));
 	menu_btns.emplace_back(new PushButton("退出"));
 	//menu_btns.emplace_back(new PushButton("退票"));
 	//menu_btns.emplace_back(new PushButton("订票信息修改"));
@@ -118,6 +119,8 @@ void CampusGuide::run()
 				break;
 			case CampusGuide::FIND:
 				ShowMap();
+				break;
+			case CampusGuide::MODIFY:
 				break;
 			case CampusGuide::EXIT:
 				//saveFile("assets/flights");
