@@ -21,9 +21,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="校园导游.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="CampusGuide.h">
       <Filter>头文件</Filter>
     </ClCompile>
@@ -48,6 +45,12 @@
     <ClCompile Include="Table.cpp">
       <Filter>源文件\easyXtool</Filter>
     </ClCompile>
+    <ClCompile Include="CampusGuideSystem.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MatGraph.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sights.h">
@@ -70,6 +73,9 @@
     </ClInclude>
     <ClInclude Include="configure.h">
       <Filter>头文件\easyXtool</Filter>
+    </ClInclude>
+    <ClInclude Include="MatGraph.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

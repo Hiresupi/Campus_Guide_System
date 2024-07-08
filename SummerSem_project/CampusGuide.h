@@ -1,11 +1,15 @@
 #pragma once
-#include"Window.h"
-#include"PushButton.h"
-#include<fstream>
-#include"Table.h"
-#include"LineEdit.h"
-#include"Sights.h"
-#include<vector>
+
+#include "Window.h"
+#include "PushButton.h"
+#include <fstream>
+#include <algorithm>
+#include "Table.h"
+#include "LineEdit.h"
+#include "MatGraph.h"
+
+
+
 using namespace std;
 
 class CampusGuide
@@ -35,15 +39,13 @@ public:
 
 	int ShowMap();
 
-	void ShowInfo(Sights&s);
+	void ShowInfo(Sights& s);
 
-	void FindAllRoute();
+	vector<int> FindShort(MatGraph& g, int src, int dst);
 
-	void FindShort();
+	vector<int> Dispath(vector<vector<int>> A, vector<vector<int>> path, int n, int i, int j);
 
 	void DrawArrow();
-
-
 
 	void drawbackground();
 
@@ -52,6 +54,10 @@ public:
 	void placeSB(string s,int x,int y);
 
 	void reminder();
+
+	vector<Sights> readSights();
+
+	vector<vector<int>> readRoutes();
 
 private:
 	IMAGE m_bk;

@@ -1,5 +1,5 @@
 #pragma once
-#include<easyx.h>
+#include <easyx.h>
 class BasicWidget
 {
 public:

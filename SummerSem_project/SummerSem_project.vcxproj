@@ -130,17 +130,19 @@
     <ClCompile Include="BasicWidget.cpp" />
     <ClCompile Include="CampusGuide.cpp" />
     <ClCompile Include="CampusGuide.h" />
+    <ClCompile Include="CampusGuideSystem.cpp" />
     <ClCompile Include="LineEdit.cpp" />
+    <ClCompile Include="MatGraph.cpp" />
     <ClCompile Include="PushButton.cpp" />
     <ClCompile Include="Sights.cpp" />
     <ClCompile Include="Table.cpp" />
     <ClCompile Include="Window.cpp" />
-    <ClCompile Include="校园导游.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BasicWidget.h" />
     <ClInclude Include="configure.h" />
     <ClInclude Include="LineEdit.h" />
+    <ClInclude Include="MatGraph.h" />
     <ClInclude Include="PushButton.h" />
     <ClInclude Include="Sights.h" />
     <ClInclude Include="Table.h" />

@@ -197,6 +197,74 @@ int CampusGuide::ShowMap()
 
 }
 
+// 显示景点信息
+void CampusGuide::ShowInfo(Sights& s)
+{
+	cout << s.address << s.info << s.canteen << s.toilet;
+}
+
+// 运用Floyd算法求最短路径，返回含有id的路径vector
+vector<int> CampusGuide::FindShort(MatGraph& g, int src, int dst)
+{
+	vector<vector<int>> A(MAXV, vector<int>(MAXV, INF));
+	vector<vector<int>> path(MAXV, vector<int>(MAXV, INF));
+	for (int i = 0; i < g.n; i++)
+	{
+		for (int j = 0; j < g.n; j++)
+		{
+			A[i][j] = g.edges[i][j];
+			if (i != j && g.edges[i][j] < INF)
+			{
+				path[i][j] = i;
+			}
+			else
+			{
+				path[i][j] = -1;
+			}
+		}
+	}
+	for (int k = 0; k < g.n; k++)
+	{
+		for (int i = 0; i < g.n; i++)
+		{
+			for (int j = 0; j < g.n; j++)
+			{
+				if (A[i][j] > A[i][k] + A[k][j])
+				{
+					A[i][j] = A[i][k] + A[k][j];
+					path[i][j] = path[k][j];
+				}
+			}
+		}
+	}
+	vector<int> routeVec = Dispath(A, path, g.n, src, dst);
+	return routeVec;
+}
+ 
+// 寻找i到j的最短路径
+vector<int> CampusGuide::Dispath(vector<vector<int>> A, vector<vector<int>> path, int n, int i, int j)
+{
+	if (A[i][j] != INF && i != j) 
+	{
+		vector <int> apath;
+		cout << "length of the shortest route is" << A[i][j];
+		apath.push_back(j);
+		int pre = path[i][j];
+		while (pre != i)
+		{
+			apath.push_back(pre);
+			pre = path[i][pre];
+		}
+		apath.push_back(i);
+		reverse(apath.begin(), apath.end());
+		return apath;
+	}
+}
+
+void CampusGuide::DrawArrow()
+{
+}
+
 
 
 void CampusGuide::ShowPic()
@@ -303,4 +371,36 @@ void CampusGuide::reminder()
 	settextcolor(RGB(0, 176,32));
 	settextstyle(30, 0, "微软雅黑", 0, 0, 880, 0, 0, 0);
 	outtextxy(0, 0, "按Esc键返回上一级...");
+}
+
+// 从文件中读取景点信息
+vector<Sights> CampusGuide::readSights()
+{
+	ifstream fin("assets/sights.txt");
+	Sights item;
+	vector<Sights> svec;
+	while (fin >> item)
+	{
+		svec.push_back(item);
+	}
+	return svec;
+}
+
+// 从文件中读取路径信息
+vector<vector<int>> CampusGuide::readRoutes()
+{
+	ifstream fin("assets/routes.txt");
+	vector<vector<int>> a(MAXV, vector<int>(MAXV, INF));
+	int i, j;
+	int length;
+	for (int i = 0; i < MAXV; i++)
+	{
+		a[i][i] = 0;
+	}
+	while (fin >> i >> j >> length)
+	{
+		a[i][j] = length;
+		a[j][i] = length;
+	}
+	return a;
 }
