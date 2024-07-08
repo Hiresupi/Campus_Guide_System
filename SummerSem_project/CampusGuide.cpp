@@ -200,7 +200,7 @@ int CampusGuide::ShowMap()
 // 显示景点信息
 void CampusGuide::ShowInfo(Sights& s)
 {
-	cout << s.address << s.info << s.canteen << s.toilet;
+	cout << s.star << s.info << s.canteen << s.toilet;
 }
 
 // 运用Floyd算法求最短路径，返回含有id的路径vector
