@@ -48,7 +48,25 @@ void Table::setHeader(const std::string& header)
 	m_w = m_gridW * m_cols;
 	m_h = m_gridH *( m_rows);
 
-	middlePut = (Window::width() - m_gridW * m_cols) / 2;//框的居中x坐标
+	middlePut = (Window::width()-m_w)/2;//框的居中x坐标
+
+}
+
+void Table::setHeader02(const std::string& header)
+{
+	m_header = header;
+	m_cols = std::count(m_header.begin(), m_header.end(), '\t') + 1;
+
+	m_tw = ::textwidth("12月12日12:12");
+	m_th = ::textheight("m_header.c_str()");
+
+	WidthSupply = 5;
+	m_gridW = ::textwidth("十五个汉字十五个汉字十五个") + WidthSupply;//格子宽度
+	HeightSupply = 40;
+	m_gridH = ::textheight("m_header.c_str()") + HeightSupply;//格子高度,40是额外增高的，后续会用到
+
+	m_w = m_gridW * m_cols;
+	m_h = m_gridH * (m_rows);
 
 }
 
@@ -69,7 +87,8 @@ void Table::show()
 void Table::drawTableGrid()
 {
 	//画横线
-	setlinecolor(RGB(222, 93, 93));
+	setlinestyle(PS_SOLID, 4);
+	setlinecolor(RGB(255, 120, 0));
 	for (int i = 0; i < m_rows + 1; i++)
 	{
 		line(m_x, m_y + i * m_gridH, m_x + m_cols * m_gridW , m_y + i * m_gridH);
@@ -110,7 +129,7 @@ void Table::drawTableBottom()
 
 void Table::drawTableData()
 {
-	::settextcolor(RGB(222, 95, 50));
+	::settextcolor(RGB(28, 107, 150));
 	::settextstyle(20, 0, "宋体", 0, 0, 800, 0, 0, 0);
 
 	//防止越界
@@ -141,13 +160,13 @@ void Table::drawTableData()
 }
 void Table::drawHeader() 
 {
-	setlinestyle(PS_SOLID, 2);
+	setlinestyle(PS_SOLID, 4);
 	rectangle(m_x, m_y - m_gridH, m_x + m_w, m_y);
 	for (size_t i = 0; i < m_cols; i++)
 	{
 		line(m_x + i * m_gridW, m_y - m_gridH, m_x + i * m_gridW, m_y);
 	}
-	setlinestyle(PS_SOLID, 1);
+	setlinestyle(PS_SOLID, 4);
 	//分割表头
 	auto headers = split(m_header);
 	for (size_t i = 0; i < headers.size(); i++)

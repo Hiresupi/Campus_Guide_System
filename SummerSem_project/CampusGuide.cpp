@@ -3,6 +3,8 @@
 
 CampusGuide::CampusGuide()
 {
+	readSights();
+	readRoutes();
 
 	//构造
 	LOGFONT f;
@@ -31,33 +33,49 @@ CampusGuide::CampusGuide()
 	}
 
 	//景点按钮初始化
-	placeSB("离校打车点1", 20, 180);//0   画线条用的标记中点坐标为（x+SBheight/2，y+SBwidth/2）
-	placeSB("计算机学院", 68, 275);//1
-	placeSB("卓尔体育馆", 88, 335);//2
-	placeSB("武汉大学牌坊", 90, 560);//3
-	placeSB("武大附小", 165, 60);//4
-	placeSB("桂园操场",230 , 300);//5
-	placeSB("总图书馆", 265, 425);//6
-	placeSB("万林博物馆", 330, 370);//7
-	placeSB("樱花城堡", 320, 175);//8
-	placeSB("樱花大道", 410, 240);//9
-	placeSB("水生研究所", 370,80);//10
-	placeSB("居民区", 390,595);//11
-	placeSB("九一二操场", 460, 320);//12
-	placeSB("工学部", 550, 60);//13
-	placeSB("珞珈山", 560, 470);//14
-	placeSB("梅园", 580, 590);//15
-	placeSB("法学院", 680, 310);//16
-	placeSB("东湖", 830, 80);//17
-	placeSB("枫园", 800, 340);//18
-	placeSB("离校打车点2", 850, 540);//19 共20个sights
+	//placeSB("离校打车点1", 20, 180);//0   画线条用的标记中点坐标为（x+SBheight/2，y+SBwidth/2）
+	//placeSB("计算机学院", 68, 275);//1
+	//placeSB("卓尔体育馆", 88, 335);//2
+	//placeSB("武汉大学牌坊", 90, 560);//3
+	//placeSB("武大附小", 165, 60);//4
+	//placeSB("桂园操场",230 , 300);//5
+	//placeSB("总图书馆", 265, 425);//6
+	//placeSB("万林博物馆", 330, 370);//7
+	//placeSB("樱花城堡", 320, 175);//8
+	//placeSB("樱花大道", 410, 240);//9
+	//placeSB("水生研究所", 370,80);//10
+	//placeSB("居民区", 390,595);//11
+	//placeSB("九一二操场", 460, 320);//12
+	//placeSB("工学部", 550, 60);//13
+	//placeSB("珞珈山", 560, 470);//14
+	//placeSB("梅园", 580, 590);//15
+	//placeSB("法学院", 680, 310);//16
+	//placeSB("东湖", 830, 80);//17
+	//placeSB("枫园", 800, 340);//18
+	//placeSB("离校打车点2", 850, 540);//19 共20个sights
+	for (int i = 0; i < SightList.size(); i++)
+	{
+		placeSB(SightList[i].name, SightList[i].x, SightList[i].y);
+	}
 
 
 	//查询部件初始化
 	SightSearchBtn.reset(new PushButton("搜索", 700, 30));
-	SightEdit.reset(new LineEdit(100, 30, 600, 45));
+	SightEdit.reset(new LineEdit(100, 30, 570, 45));
 	SightEdit->setTitle("请输入景点全称（如：武汉大学牌坊）");
 	SightEdit->setPrompt("武汉大学牌坊");
+
+	//景点信息查看初始化
+
+
+	ToiletBtn.reset(new PushButton("附近厕所", 360, 480));
+	CafeBtn.reset(new PushButton("附近餐厅", 610,480));
+
+
+	//管理员入口初始化
+	LoginBtn.reset(new PushButton("进入", 700, 170));
+	LoginEdit.reset(new LineEdit(100, 170, 570, 45));
+	LoginEdit->setTitle("请输入密钥");
 
 
 }
@@ -67,12 +85,14 @@ CampusGuide::CampusGuide()
 
 void CampusGuide::run()
 {
+
 		//获取菜单的返回值
 		int op = MENU;
 		int choice = 666;
 		//const int add = 1;
 		//const int amend = 2;
 		bool saySorry = false;
+		int signal=-1;//接收鼠标点击信号
 
 		while (true)
 		{
@@ -89,8 +109,13 @@ void CampusGuide::run()
 					//ESC退出操作 返回主界面
 					if (Window::getMsg().vkcode == VK_ESCAPE)
 					{
-						op = MENU;
-						SightEdit->setText("");
+						if (signal != -1)
+						{
+							signal = -1;
+						}
+						else op = MENU;
+
+						SightEdit->setText("");//分支点一的清理
 					}
 					break;
 				default://鼠标操作
@@ -115,12 +140,30 @@ void CampusGuide::run()
 				saySorry=searchNshow();
 				break;
 			case CampusGuide::SEARCH:
-				ShowMap();
+				if (signal == -1)signal = ShowMap();
+				else
+				{
+					if (flag != 3)
+					{
+						::loadimage(&m_bk, "assets/背景3.JPG", Window::width(), Window::height());
+						flag = 3;
+					}
+					string file = "assets/pics1/Pic";
+					file += to_string(signal)+".JPG";
+					::loadimage(&sightPic, file.c_str(), 370, 270);
+					putimage(12, 122,400,300,  &sightPic,0,0);
+					showSightTable(SightList[signal]);
+
+					::loadimage(&LOGO, "assets/LOGO.PNG",200,63);
+					putimage(380, 570, &LOGO);
+				}
+
 				break;
 			case CampusGuide::FIND:
 				ShowMap();
 				break;
 			case CampusGuide::MODIFY:
+				Administrate();
 				break;
 			case CampusGuide::EXIT:
 				//saveFile("assets/flights");
@@ -198,9 +241,32 @@ int CampusGuide::ShowMap()
 }
 
 // 显示景点信息
-void CampusGuide::ShowInfo(Sights& s)
+void CampusGuide::showSightTable(Sights& s)
 {
-	cout << s.address << s.info << s.canteen << s.toilet;
+	SightTable.reset(new Table);
+	SightTable->setRowCount(4);
+	string header = "景点名称	";
+	header += s.name;
+	SightTable->setHeader02(header);
+	string line1 = "简介	"; line1 += s.info;
+	string line2 = "推荐指数	"; line2 += s.star;
+	string line3 = "有无餐厅	";
+	string line4 = "有无厕所	";
+	if (s.canteen) line3 += "有";
+	else line3 += "无";
+	if (s.toilet) line4 += "有";
+	else line4 += "无";
+
+	SightTable->insertData(line1);
+	SightTable->insertData(line2);
+	SightTable->insertData(line3);
+	SightTable->insertData(line4);
+
+	SightTable->move(SightTable->tempX, SightTable->tempY);//表格位置
+
+	SightTable->show();
+	CafeBtn->show();
+	ToiletBtn->show();
 }
 
 // 运用Floyd算法求最短路径，返回含有id的路径vector
@@ -261,6 +327,13 @@ vector<int> CampusGuide::Dispath(vector<vector<int>> A, vector<vector<int>> path
 	}
 }
 
+bool CampusGuide::Administrate()
+{
+	LoginBtn->show();
+	LoginEdit->show();
+	return false;
+}
+
 void CampusGuide::DrawArrow()
 {
 }
@@ -281,7 +354,7 @@ bool CampusGuide::searchNshow()
 {
 	SightSearchBtn->show();
 	SightEdit->show();
-	auto str = SightEdit->text();
+	string str = SightEdit->text();
 	if(SightSearchBtn->isClicked()&&!str.empty())
 	if (str == "樱花城堡"||str=="樱顶")
 	{
@@ -347,14 +420,17 @@ void CampusGuide::eventLoop()
 	SightSearchBtn->event();
 	SightEdit->event();
 
-	//CafeBtn->event();
-	//ToiletBtn->event();
+	CafeBtn->event();
+	ToiletBtn->event();
 	//CafeTable->event();
 	//ToiletTable->event();
 
 
 	//ShortBtn->event();
 	//AllBtn->event();
+
+	LoginBtn->event();
+	LoginEdit->event();
 }
 
 
@@ -368,39 +444,40 @@ void CampusGuide::placeSB(string s, int x, int y)//画景点按钮
 
 void CampusGuide::reminder()
 {
-	settextcolor(RGB(0, 176,32));
+	settextcolor(RGB(255, 120, 0));
 	settextstyle(30, 0, "微软雅黑", 0, 0, 880, 0, 0, 0);
 	outtextxy(0, 0, "按Esc键返回上一级...");
 }
 
 // 从文件中读取景点信息
-vector<Sights> CampusGuide::readSights()
+void CampusGuide::readSights()
 {
 	ifstream fin("assets/sights.txt");
 	Sights item;
-	vector<Sights> svec;
+
 	while (fin >> item)
 	{
-		svec.push_back(item);
+		SightList.push_back(item);
 	}
-	return svec;
+	
 }
 
 // 从文件中读取路径信息
-vector<vector<int>> CampusGuide::readRoutes()
+void CampusGuide::readRoutes()
 {
 	ifstream fin("assets/routes.txt");
-	vector<vector<int>> a(MAXV, vector<int>(MAXV, INF));
+	RWeight = vector<vector<int>>(MAXV, vector<int>(MAXV, INF));
 	int i, j;
 	int length;
 	for (int i = 0; i < MAXV; i++)
 	{
-		a[i][i] = 0;
+		RWeight[i][i] = 0;
 	}
 	while (fin >> i >> j >> length)
 	{
-		a[i][j] = length;
-		a[j][i] = length;
+		RWeight[i][j] = length;
+		RWeight[j][i] = length;
 	}
-	return a;
 }
+
+

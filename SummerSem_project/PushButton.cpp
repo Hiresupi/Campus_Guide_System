@@ -5,6 +5,8 @@ PushButton::PushButton(const std::string& text, int x, int y, int w, int h)
 
 void PushButton::show()
 {
+	setlinecolor(RGB(222, 93, 93));
+	setlinestyle(PS_SOLID, 3);
 	setfillcolor(cur_c);
 	::fillroundrect(m_x, m_y, m_x + m_w, m_y + m_h,20,20);
 
@@ -18,6 +20,8 @@ void PushButton::show()
 }
 void PushButton::show2()//æ∞µ„”√
 {
+	setlinecolor(RGB(222, 93, 93));
+	setlinestyle(PS_SOLID, 3);
 	setfillcolor(cur_c);
 	::fillroundrect(m_x, m_y, m_x + m_w, m_y + m_h, 20, 20);
 

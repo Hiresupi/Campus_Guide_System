@@ -6,7 +6,7 @@ using namespace std;
 std::istream& operator>>(std::istream& is, Sights& item)
 {
 	is >> item.name >> item.x >> item.y
-		>> item.id >> item.address >> item.info
+		>> item.id >> item.star >> item.info
 		>> item.canteen >> item.toilet;
 	if (!is)
 	{
@@ -18,7 +18,7 @@ std::istream& operator>>(std::istream& is, Sights& item)
 std::ostream& operator<<(std::ostream& os, const Sights& item)
 {
 	os << item.name << item.x << item.y
-		<< item.id << item.address << item.info
+		<< item.id << item.star << item.info
 		<< item.canteen << item.toilet;
     return os;
 }

@@ -7,7 +7,7 @@
 #include "Table.h"
 #include "LineEdit.h"
 #include "MatGraph.h"
-
+#include<vector>
 
 
 using namespace std;
@@ -45,6 +45,8 @@ public:
 
 	vector<int> Dispath(vector<vector<int>> A, vector<vector<int>> path, int n, int i, int j);
 
+	bool Administrate();
+
 	void DrawArrow();
 
 	void drawbackground();
@@ -55,13 +57,22 @@ public:
 
 	void reminder();
 
-	vector<Sights> readSights();
+	void readSights();
 
-	vector<vector<int>> readRoutes();
+	void readRoutes();
+
+	void showSightTable(Sights &s);
 
 private:
+
+	vector<Sights> SightList;
+	vector<vector<int>> RWeight;
+
 	IMAGE m_bk;
 	int flag = 0;//标识背景图片状态，减少加载背景次数，更流畅
+	// 1是主背景
+	// 2是分支一的背景
+	//3是分支二的背景
 	vector<unique_ptr<PushButton>>menu_btns;
 	vector<unique_ptr<PushButton>>sight_btns;
 	int SBheight = 104; int SBwidth = 23;
@@ -69,6 +80,11 @@ private:
 	//景点概览
 	unique_ptr<PushButton>SightSearchBtn;
 	unique_ptr <LineEdit> SightEdit;
+
+	//景点信息
+	IMAGE sightPic;
+	IMAGE LOGO;
+	unique_ptr<Table>SightTable;
 
 	//查看附近厕所/食堂:按钮、表格
 	unique_ptr<PushButton> CafeBtn;
@@ -79,10 +95,12 @@ private:
 
 	//查询线路
 	unique_ptr<PushButton>ShortBtn;
-	unique_ptr<PushButton>AllBtn;
 
 
-
+	//管理员
+	unique_ptr<PushButton>LoginBtn;//记得去初始化一下
+	unique_ptr <LineEdit> LoginEdit;
+	string passWord = "boys12138";
 
 
 };

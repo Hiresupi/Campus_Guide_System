@@ -18,6 +18,8 @@ public:
     void setHeader(const std::string& header);
     void insertData(const std::string& data);
 
+    void setHeader02(const std::string& header);
+
     void show();
     
     void drawTableGrid();
@@ -47,6 +49,8 @@ public:
     int m_rows=15;
     int m_cols;
     
+    int tempX = 395;
+    int tempY = 170;
 private:
     std::string m_header;
     std::vector<std::string>m_datas;

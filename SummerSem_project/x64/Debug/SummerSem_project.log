@@ -1,0 +1,7 @@
+﻿  CampusGuide.cpp
+D:\AAAProject_upload\Campus_Guide_System\SummerSem_project\Table.h(16,46): warning C4267: “return”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“CampusGuide.cpp”)
+  
+D:\AAAProject_upload\Campus_Guide_System\SummerSem_project\CampusGuide.cpp(328): warning C4715: “CampusGuide::Dispath”: 不是所有的控件路径都返回值
+x64\Debug\CampusGuide.obj : warning LNK4042: 对象被多次指定；已忽略多余的指定
+  SummerSem_project.vcxproj -> D:\AAAProject_upload\Campus_Guide_System\SummerSem_project\x64\Debug\SummerSem_project.exe

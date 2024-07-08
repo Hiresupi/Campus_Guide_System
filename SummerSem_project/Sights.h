@@ -11,7 +11,7 @@ public:
 	std::string name = "";   // 名字
 	int x = 0;   // x坐标
 	int y = 0;   // y坐标  
-	std::string address = "";
+	std::string star = "";
 	std::string info = "";   // 信息
 	bool canteen = 0;
 	bool toilet = 0;
@@ -20,8 +20,8 @@ public:
 	// 构造函数
 	Sights() = default;
 	Sights(int id, const std::string name, int x,
-		int y, const std::string address, const std::string info, bool canteen, bool toilet) :
-		id(id), name(name), x(x), y(y), address(address), info(info), canteen(canteen), toilet(toilet) {}
+		int y, const std::string star, const std::string info, bool canteen, bool toilet) :
+		id(id), name(name), x(x), y(y),star(star), info(info), canteen(canteen), toilet(toilet) {}
 
 };
 
