@@ -40,7 +40,7 @@ void Table::setHeader(const std::string& header)
 	m_tw = ::textwidth("12月12日12:12");
 	m_th = ::textheight("m_header.c_str()");
 
-	WidthSupply = 2;
+	WidthSupply = 5;
 	m_gridW=::textwidth("12月12日12:12")+WidthSupply;//格子宽度
 	HeightSupply = 40;
 	m_gridH=::textheight("m_header.c_str()")+HeightSupply;//格子高度,40是额外增高的，后续会用到
@@ -61,7 +61,7 @@ void Table::setHeader02(const std::string& header)
 	m_th = ::textheight("m_header.c_str()");
 
 	WidthSupply = 5;
-	m_gridW = ::textwidth("十五个汉字十五个汉字十五个") + WidthSupply;//格子宽度
+	m_gridW = ::textwidth("十五个汉字十五个汉字十五g") + WidthSupply;//格子宽度
 	HeightSupply = 40;
 	m_gridH = ::textheight("m_header.c_str()") + HeightSupply;//格子高度,40是额外增高的，后续会用到
 

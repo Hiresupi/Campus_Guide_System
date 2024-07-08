@@ -68,14 +68,28 @@ CampusGuide::CampusGuide()
 	//景点信息查看初始化
 
 
-	ToiletBtn.reset(new PushButton("附近厕所", 360, 480));
-	CafeBtn.reset(new PushButton("附近餐厅", 610,480));
+	ToiletBtn.reset(new PushButton("附近厕所", 435, 450));
+	CafeBtn.reset(new PushButton("附近餐厅", 710,450));
 
 
 	//管理员入口初始化
 	LoginBtn.reset(new PushButton("进入", 700, 170));
 	LoginEdit.reset(new LineEdit(100, 170, 570, 45));
 	LoginEdit->setTitle("请输入密钥");
+
+	subMenu_btns.emplace_back(new PushButton("增加新景点"));
+	subMenu_btns.emplace_back(new PushButton("增加新路线"));
+	subMenu_btns.emplace_back(new PushButton("删除景点"));
+	subMenu_btns.emplace_back(new PushButton("删除路线"));
+
+	for (int i = 0; i < subMenu_btns.size(); i++)
+	{
+		subMenu_btns[i]->setFixedSize(250, 45);
+		int bx = (Window::width() - subMenu_btns[i]->width()) / 2;
+		int by = 240 + i * (subMenu_btns[i]->height() + 20);
+		//移动到中间
+		subMenu_btns[i]->move(bx, by);
+	}
 
 
 }
@@ -92,7 +106,9 @@ void CampusGuide::run()
 		//const int add = 1;
 		//const int amend = 2;
 		bool saySorry = false;
+		bool saySorry2 = false;
 		int signal=-1;//接收鼠标点击信号
+
 
 		while (true)
 		{
@@ -112,9 +128,19 @@ void CampusGuide::run()
 						if (signal != -1)
 						{
 							signal = -1;
+						}//信息查询功能子界面
+						else if (state==1)
+						{
+							state = 0;
+						}
+						else if (state == 0)
+						{
+						    op = MENU;
+							state = -1;
 						}
 						else op = MENU;
 
+						LoginEdit->setText("");
 						SightEdit->setText("");//分支点一的清理
 					}
 					break;
@@ -140,30 +166,13 @@ void CampusGuide::run()
 				saySorry=searchNshow();
 				break;
 			case CampusGuide::SEARCH:
-				if (signal == -1)signal = ShowMap();
-				else
-				{
-					if (flag != 3)
-					{
-						::loadimage(&m_bk, "assets/背景3.JPG", Window::width(), Window::height());
-						flag = 3;
-					}
-					string file = "assets/pics1/Pic";
-					file += to_string(signal)+".JPG";
-					::loadimage(&sightPic, file.c_str(), 370, 270);
-					putimage(12, 122,400,300,  &sightPic,0,0);
-					showSightTable(SightList[signal]);
-
-					::loadimage(&LOGO, "assets/LOGO.PNG",200,63);
-					putimage(380, 570, &LOGO);
-				}
-
+				ShowInfo(signal);
 				break;
 			case CampusGuide::FIND:
 				ShowMap();
 				break;
 			case CampusGuide::MODIFY:
-				Administrate();
+				saySorry2=Administrate();
 				break;
 			case CampusGuide::EXIT:
 				//saveFile("assets/flights");
@@ -187,7 +196,13 @@ void CampusGuide::run()
 			{
 				Sleep(2000);
 				saySorry = false;
-			}
+			}//速查功能抱歉
+			if (saySorry2)
+			{
+				Sleep(2000);
+				saySorry2 = false;
+			}//管理员密码抱歉
+
 			Window::getMsg().message = 0;
 		}
 
@@ -240,6 +255,35 @@ int CampusGuide::ShowMap()
 
 }
 
+void CampusGuide::ShowInfo(int &signal)
+{
+	if (signal == -1)signal = ShowMap();
+	else
+	{
+		reminder();
+		if (flag != 3)
+		{
+			::loadimage(&m_bk, "assets/背景3.JPG", Window::width(), Window::height());
+			::loadimage(&LOGO, "assets/LOGO.PNG", 200, 63);
+
+			flag = 3;
+		}
+		string file = "assets/pics1/Pic";
+		file += to_string(signal) + ".JPG";
+		if (flag1 != signal)
+		{
+			::loadimage(&sightPic, file.c_str(), 370, 270);
+			flag1 = signal;
+		}
+
+		putimage(8, 128, 400, 300, &sightPic, 0, 0);//放景点图片
+
+		showSightTable(SightList[signal]);
+
+		putimage(380, 570, &LOGO);//放logo
+	}
+}
+
 // 显示景点信息
 void CampusGuide::showSightTable(Sights& s)
 {
@@ -265,6 +309,7 @@ void CampusGuide::showSightTable(Sights& s)
 	SightTable->move(SightTable->tempX, SightTable->tempY);//表格位置
 
 	SightTable->show();
+
 	CafeBtn->show();
 	ToiletBtn->show();
 }
@@ -329,8 +374,40 @@ vector<int> CampusGuide::Dispath(vector<vector<int>> A, vector<vector<int>> path
 
 bool CampusGuide::Administrate()
 {
-	LoginBtn->show();
-	LoginEdit->show();
+	if (state == -1)state = 0;
+	reminder();
+	if (state == 0)
+	{
+		string str1("请输入管理员序列码");
+		settextcolor(RGB(255, 120, 0));
+		settextstyle(56, 28, "Bulter");
+		//settextstyle(40, 0, "宋体", 0, 0, 800, 0, 0, 0);
+		outtextxy((Window::width() - textwidth(str1.c_str())) / 2,100, str1.c_str());
+		LoginBtn->show();
+		LoginEdit->show();
+	}
+	else if (state==1)
+	{
+		for (int i = 0; i < subMenu_btns.size(); i++)
+			subMenu_btns[i]->show();
+	}
+
+	if (passWord == LoginEdit->text()&&LoginBtn->isClicked())
+	{
+		state = 1;	
+	}
+	else if (LoginBtn->isClicked()&&LoginEdit->text() != "" && passWord != LoginEdit->text())
+	{
+		string str1("序列码错误，请检查后重新输入!");
+		settextcolor(RGB(221, 255, 148));
+		settextstyle(50, 25, "Bulter");
+		//settextstyle(40, 0, "宋体", 0, 0, 800, 0, 0, 0);
+		outtextxy((Window::width() - textwidth(str1.c_str())) / 2,
+			(Window::height() - textheight(str1.c_str())) / 2, str1.c_str());
+		return true;//抱歉提示
+	}
+
+
 	return false;
 }
 
@@ -396,6 +473,7 @@ bool CampusGuide::searchNshow()
 	{
 		string str1("抱歉，请检查输入或当前暂无该景点信息!");
 		settextcolor(RGB(221,255,148));
+		//settextstyle(60, 30, "Bulter");
 		settextstyle(40, 0, "宋体", 0, 0, 800, 0, 0, 0);
 		outtextxy((Window::width() - textwidth(str1.c_str()))/2,
 			(Window::height()-textheight(str1.c_str()))/2, str1.c_str());
@@ -431,6 +509,9 @@ void CampusGuide::eventLoop()
 
 	LoginBtn->event();
 	LoginEdit->event();
+	for (int i = 0; i < subMenu_btns.size(); i++)
+		subMenu_btns[i]->event();
+
 }
 
 

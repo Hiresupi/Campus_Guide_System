@@ -49,8 +49,8 @@ public:
     int m_rows=15;
     int m_cols;
     
-    int tempX = 395;
-    int tempY = 170;
+    int tempX = 385;
+    int tempY = 160;
 private:
     std::string m_header;
     std::vector<std::string>m_datas;

@@ -39,7 +39,7 @@ public:
 
 	int ShowMap();
 
-	void ShowInfo(Sights& s);
+	void ShowInfo(int &signal);
 
 	vector<int> FindShort(MatGraph& g, int src, int dst);
 
@@ -85,6 +85,7 @@ private:
 	IMAGE sightPic;
 	IMAGE LOGO;
 	unique_ptr<Table>SightTable;
+	int flag1=-1;//景点图片标志
 
 	//查看附近厕所/食堂:按钮、表格
 	unique_ptr<PushButton> CafeBtn;
@@ -101,6 +102,8 @@ private:
 	unique_ptr<PushButton>LoginBtn;//记得去初始化一下
 	unique_ptr <LineEdit> LoginEdit;
 	string passWord = "boys12138";
+	int state=-1;
+	vector<unique_ptr<PushButton>>subMenu_btns;
 
 
 };
