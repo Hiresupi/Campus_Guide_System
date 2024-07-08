@@ -6,88 +6,88 @@ CampusGuide::CampusGuide()
 	readSights();
 	readRoutes();
 
-	//æ„é€ 
+	//¹¹Ôì
 	LOGFONT f;
 	gettextstyle(&f);
-	f.lfQuality = ANTIALIASED_QUALITY;//æ–‡å­—æŠ—é”¯é½¿
+	f.lfQuality = ANTIALIASED_QUALITY;//ÎÄ×Ö¿¹¾â³İ
 	settextstyle(&f);
-	::settextstyle(20, 0, "æ¥·ä½“", 0, 0, 100, 0, 0, 0); //settextstyle(120, 60, "é»‘ä½“", 0, 0, 880, 0, 1, 0);
+	::settextstyle(20, 0, "¿¬Ìå", 0, 0, 100, 0, 0, 0); //settextstyle(120, 60, "ºÚÌå", 0, 0, 880, 0, 1, 0);
 	::loadimage(&m_bk, "assets/WHU3.JPEG", Window::width(), Window::height());
 
-	//ä¸»ç•Œé¢æŒ‰é’®åˆå§‹åŒ–
-	menu_btns.emplace_back(new PushButton("çƒ­é—¨æ™¯ç‚¹é€ŸæŸ¥"));
-	menu_btns.emplace_back(new PushButton("æ™¯ç‚¹æŸ¥è¯¢"));
-	menu_btns.emplace_back(new PushButton("è·¯çº¿æŸ¥è¯¢"));
-	menu_btns.emplace_back(new PushButton("ç®¡ç†å‘˜å…¥å£"));
-	menu_btns.emplace_back(new PushButton("é€€å‡º"));
-	//menu_btns.emplace_back(new PushButton("é€€ç¥¨"));
-	//menu_btns.emplace_back(new PushButton("è®¢ç¥¨ä¿¡æ¯ä¿®æ”¹"));
-	//menu_btns.emplace_back(new PushButton("é€€å‡ºç³»ç»Ÿ"));
+	//Ö÷½çÃæ°´Å¥³õÊ¼»¯
+	menu_btns.emplace_back(new PushButton("ÈÈÃÅ¾°µãËÙ²é"));
+	menu_btns.emplace_back(new PushButton("¾°µã²éÑ¯"));
+	menu_btns.emplace_back(new PushButton("Â·Ïß²éÑ¯"));
+	menu_btns.emplace_back(new PushButton("¹ÜÀíÔ±Èë¿Ú"));
+	menu_btns.emplace_back(new PushButton("ÍË³ö"));
+	//menu_btns.emplace_back(new PushButton("ÍËÆ±"));
+	//menu_btns.emplace_back(new PushButton("¶©Æ±ĞÅÏ¢ĞŞ¸Ä"));
+	//menu_btns.emplace_back(new PushButton("ÍË³öÏµÍ³"));
 	for (int i = 0; i < menu_btns.size(); i++)
 	{
 		menu_btns[i]->setFixedSize(250, 45);
 		int bx = (Window::width() - menu_btns[i]->width()) / 2;
 		int by = 240 + i * (menu_btns[i]->height() + 20);
-		//ç§»åŠ¨åˆ°ä¸­é—´
+		//ÒÆ¶¯µ½ÖĞ¼ä
 		menu_btns[i]->move(bx, by);
 	}
 
-	//æ™¯ç‚¹æŒ‰é’®åˆå§‹åŒ–
-	//placeSB("ç¦»æ ¡æ‰“è½¦ç‚¹1", 20, 180);//0   ç”»çº¿æ¡ç”¨çš„æ ‡è®°ä¸­ç‚¹åæ ‡ä¸ºï¼ˆx+SBheight/2ï¼Œy+SBwidth/2ï¼‰
-	//placeSB("è®¡ç®—æœºå­¦é™¢", 68, 275);//1
-	//placeSB("å“å°”ä½“è‚²é¦†", 88, 335);//2
-	//placeSB("æ­¦æ±‰å¤§å­¦ç‰ŒåŠ", 90, 560);//3
-	//placeSB("æ­¦å¤§é™„å°", 165, 60);//4
-	//placeSB("æ¡‚å›­æ“åœº",230 , 300);//5
-	//placeSB("æ€»å›¾ä¹¦é¦†", 265, 425);//6
-	//placeSB("ä¸‡æ—åšç‰©é¦†", 330, 370);//7
-	//placeSB("æ¨±èŠ±åŸå ¡", 320, 175);//8
-	//placeSB("æ¨±èŠ±å¤§é“", 410, 240);//9
-	//placeSB("æ°´ç”Ÿç ”ç©¶æ‰€", 370,80);//10
-	//placeSB("å±…æ°‘åŒº", 390,595);//11
-	//placeSB("ä¹ä¸€äºŒæ“åœº", 460, 320);//12
-	//placeSB("å·¥å­¦éƒ¨", 550, 60);//13
-	//placeSB("ççˆå±±", 560, 470);//14
-	//placeSB("æ¢…å›­", 580, 590);//15
-	//placeSB("æ³•å­¦é™¢", 680, 310);//16
-	//placeSB("ä¸œæ¹–", 830, 80);//17
-	//placeSB("æ«å›­", 800, 340);//18
-	//placeSB("ç¦»æ ¡æ‰“è½¦ç‚¹2", 850, 540);//19 å…±20ä¸ªsights
+	//¾°µã°´Å¥³õÊ¼»¯
+	//placeSB("ÀëĞ£´ò³µµã1", 20, 180);//0   »­ÏßÌõÓÃµÄ±ê¼ÇÖĞµã×ø±êÎª£¨x+SBheight/2£¬y+SBwidth/2£©
+	//placeSB("¼ÆËã»úÑ§Ôº", 68, 275);//1
+	//placeSB("×¿¶ûÌåÓı¹İ", 88, 335);//2
+	//placeSB("Îäºº´óÑ§ÅÆ·»", 90, 560);//3
+	//placeSB("Îä´ó¸½Ğ¡", 165, 60);//4
+	//placeSB("¹ğÔ°²Ù³¡",230 , 300);//5
+	//placeSB("×ÜÍ¼Êé¹İ", 265, 425);//6
+	//placeSB("ÍòÁÖ²©Îï¹İ", 330, 370);//7
+	//placeSB("Ó£»¨³Ç±¤", 320, 175);//8
+	//placeSB("Ó£»¨´óµÀ", 410, 240);//9
+	//placeSB("Ë®ÉúÑĞ¾¿Ëù", 370,80);//10
+	//placeSB("¾ÓÃñÇø", 390,595);//11
+	//placeSB("¾ÅÒ»¶ş²Ù³¡", 460, 320);//12
+	//placeSB("¹¤Ñ§²¿", 550, 60);//13
+	//placeSB("çóçìÉ½", 560, 470);//14
+	//placeSB("Ã·Ô°", 580, 590);//15
+	//placeSB("·¨Ñ§Ôº", 680, 310);//16
+	//placeSB("¶«ºş", 830, 80);//17
+	//placeSB("·ãÔ°", 800, 340);//18
+	//placeSB("ÀëĞ£´ò³µµã2", 850, 540);//19 ¹²20¸ösights
 	for (int i = 0; i < SightList.size(); i++)
 	{
 		placeSB(SightList[i].name, SightList[i].x, SightList[i].y);
 	}
 
 
-	//æŸ¥è¯¢éƒ¨ä»¶åˆå§‹åŒ–
-	SightSearchBtn.reset(new PushButton("æœç´¢", 700, 30));
+	//²éÑ¯²¿¼ş³õÊ¼»¯
+	SightSearchBtn.reset(new PushButton("ËÑË÷", 700, 30));
 	SightEdit.reset(new LineEdit(100, 30, 570, 45));
-	SightEdit->setTitle("è¯·è¾“å…¥æ™¯ç‚¹å…¨ç§°ï¼ˆå¦‚ï¼šæ­¦æ±‰å¤§å­¦ç‰ŒåŠï¼‰");
-	SightEdit->setPrompt("æ­¦æ±‰å¤§å­¦ç‰ŒåŠ");
+	SightEdit->setTitle("ÇëÊäÈë¾°µãÈ«³Æ£¨Èç£ºÎäºº´óÑ§ÅÆ·»£©");
+	SightEdit->setPrompt("Îäºº´óÑ§ÅÆ·»");
 
-	//æ™¯ç‚¹ä¿¡æ¯æŸ¥çœ‹åˆå§‹åŒ–
-
-
-	ToiletBtn.reset(new PushButton("é™„è¿‘å•æ‰€", 435, 450));
-	CafeBtn.reset(new PushButton("é™„è¿‘é¤å…", 710,450));
+	//¾°µãĞÅÏ¢²é¿´³õÊ¼»¯
 
 
-	//ç®¡ç†å‘˜å…¥å£åˆå§‹åŒ–
-	LoginBtn.reset(new PushButton("è¿›å…¥", 700, 170));
+	ToiletBtn.reset(new PushButton("¸½½ü²ŞËù", 435, 450));
+	CafeBtn.reset(new PushButton("¸½½ü²ÍÌü", 710,450));
+
+
+	//¹ÜÀíÔ±Èë¿Ú³õÊ¼»¯
+	LoginBtn.reset(new PushButton("½øÈë", 700, 170));
 	LoginEdit.reset(new LineEdit(100, 170, 570, 45));
-	LoginEdit->setTitle("è¯·è¾“å…¥å¯†é’¥");
+	LoginEdit->setTitle("ÇëÊäÈëÃÜÔ¿");
 
-	subMenu_btns.emplace_back(new PushButton("å¢åŠ æ–°æ™¯ç‚¹"));
-	subMenu_btns.emplace_back(new PushButton("å¢åŠ æ–°è·¯çº¿"));
-	subMenu_btns.emplace_back(new PushButton("åˆ é™¤æ™¯ç‚¹"));
-	subMenu_btns.emplace_back(new PushButton("åˆ é™¤è·¯çº¿"));
+	subMenu_btns.emplace_back(new PushButton("Ôö¼ÓĞÂ¾°µã"));
+	subMenu_btns.emplace_back(new PushButton("Ôö¼ÓĞÂÂ·Ïß"));
+	subMenu_btns.emplace_back(new PushButton("É¾³ı¾°µã"));
+	subMenu_btns.emplace_back(new PushButton("É¾³ıÂ·Ïß"));
 
 	for (int i = 0; i < subMenu_btns.size(); i++)
 	{
 		subMenu_btns[i]->setFixedSize(250, 45);
 		int bx = (Window::width() - subMenu_btns[i]->width()) / 2;
 		int by = 240 + i * (subMenu_btns[i]->height() + 20);
-		//ç§»åŠ¨åˆ°ä¸­é—´
+		//ÒÆ¶¯µ½ÖĞ¼ä
 		subMenu_btns[i]->move(bx, by);
 	}
 
@@ -100,14 +100,14 @@ CampusGuide::CampusGuide()
 void CampusGuide::run()
 {
 
-		//è·å–èœå•çš„è¿”å›å€¼
+		//»ñÈ¡²Ëµ¥µÄ·µ»ØÖµ
 		int op = MENU;
 		int choice = 666;
 		//const int add = 1;
 		//const int amend = 2;
 		bool saySorry = false;
 		bool saySorry2 = false;
-		int signal=-1;//æ¥æ”¶é¼ æ ‡ç‚¹å‡»ä¿¡å·
+		int signal=-1;//½ÓÊÕÊó±êµã»÷ĞÅºÅ
 
 
 		while (true)
@@ -122,13 +122,13 @@ void CampusGuide::run()
 				switch (Window::getMsg().message)
 				{
 				case WM_KEYDOWN:
-					//ESCé€€å‡ºæ“ä½œ è¿”å›ä¸»ç•Œé¢
+					//ESCÍË³ö²Ù×÷ ·µ»ØÖ÷½çÃæ
 					if (Window::getMsg().vkcode == VK_ESCAPE)
 					{
 						if (signal != -1)
 						{
 							signal = -1;
-						}//ä¿¡æ¯æŸ¥è¯¢åŠŸèƒ½å­ç•Œé¢
+						}//ĞÅÏ¢²éÑ¯¹¦ÄÜ×Ó½çÃæ
 						else if (state==1)
 						{
 							state = 0;
@@ -141,11 +141,11 @@ void CampusGuide::run()
 						else op = MENU;
 
 						LoginEdit->setText("");
-						SightEdit->setText("");//åˆ†æ”¯ç‚¹ä¸€çš„æ¸…ç†
+						SightEdit->setText("");//·ÖÖ§µãÒ»µÄÇåÀí
 					}
 					break;
-				default://é¼ æ ‡æ“ä½œ
-					eventLoop();//å¾ªç¯æ›´æ–°å„ä¸ªéƒ¨ä»¶çš„çŠ¶æ€
+				default://Êó±ê²Ù×÷
+					eventLoop();//Ñ­»·¸üĞÂ¸÷¸ö²¿¼şµÄ×´Ì¬
 					break;
 				}
 			}
@@ -196,12 +196,12 @@ void CampusGuide::run()
 			{
 				Sleep(2000);
 				saySorry = false;
-			}//é€ŸæŸ¥åŠŸèƒ½æŠ±æ­‰
+			}//ËÙ²é¹¦ÄÜ±§Ç¸
 			if (saySorry2)
 			{
 				Sleep(2000);
 				saySorry2 = false;
-			}//ç®¡ç†å‘˜å¯†ç æŠ±æ­‰
+			}//¹ÜÀíÔ±ÃÜÂë±§Ç¸
 
 			Window::getMsg().message = 0;
 		}
@@ -211,14 +211,14 @@ void CampusGuide::run()
 
 int CampusGuide::menu()
 {
-	//ç”»æ ‡é¢˜
+	//»­±êÌâ
 	settextcolor(RGB(255, 120, 0));
-	settextstyle(120, 60, "é»‘ä½“", 0, 0, 880, 0, 1, 0);
-	char str[] = "æ­¦å¤§æ ¡å›­ä¸€å¯¼é€š";
+	settextstyle(120, 60, "ºÚÌå", 0, 0, 880, 0, 1, 0);
+	char str[] = "Îä´óĞ£Ô°Ò»µ¼Í¨";
 	int tx = (Window::width() - textwidth(str)) / 2;
 	int ty = 40;
 	outtextxy(tx, ty, str);
-	::settextstyle(20, 0, "æ¥·ä½“", 0, 0, 100, 0, 0, 0);
+	::settextstyle(20, 0, "¿¬Ìå", 0, 0, 100, 0, 0, 0);
 	for (int i = 0; i < menu_btns.size(); i++)
 	{
 		menu_btns[i]->show();
@@ -228,7 +228,7 @@ int CampusGuide::menu()
 			return i;
 		}
 	}
-	//æ ¹æ®èœå•çš„ç‚¹å‡» è¿”å›æ“ä½œ
+	//¸ù¾İ²Ëµ¥µÄµã»÷ ·µ»Ø²Ù×÷
 	return MENU;
 }
 
@@ -241,7 +241,7 @@ int CampusGuide::ShowMap()
 		
 		flag = 2;
 	}
-	//::settextstyle(20, 0, "æ¥·ä½“", 0, 0, 100, 0, 0, 0);
+	//::settextstyle(20, 0, "¿¬Ìå", 0, 0, 100, 0, 0, 0);
 	for (int i = 0; i < sight_btns.size(); i++)
 	{
 		sight_btns[i]->show2();
@@ -263,12 +263,12 @@ void CampusGuide::ShowInfo(int &signal)
 		reminder();
 		if (flag != 3)
 		{
-			::loadimage(&m_bk, "assets/èƒŒæ™¯3.JPG", Window::width(), Window::height());
+			::loadimage(&m_bk, "assets/±³¾°3.JPG", Window::width(), Window::height());
 			::loadimage(&LOGO, "assets/LOGO.PNG", 200, 63);
 
 			flag = 3;
 		}
-		string file = "assets/pics1/Pic";
+		string file = "assets/pics/Pic";
 		file += to_string(signal) + ".JPG";
 		if (flag1 != signal)
 		{
@@ -276,37 +276,37 @@ void CampusGuide::ShowInfo(int &signal)
 			flag1 = signal;
 		}
 
-		putimage(8, 128, 400, 300, &sightPic, 0, 0);//æ”¾æ™¯ç‚¹å›¾ç‰‡
+		putimage(8, 128, 400, 300, &sightPic, 0, 0);//·Å¾°µãÍ¼Æ¬
 
 		showSightTable(SightList[signal]);
 
-		putimage(380, 570, &LOGO);//æ”¾logo
+		putimage(380, 570, &LOGO);//·Ålogo
 	}
 }
 
-// æ˜¾ç¤ºæ™¯ç‚¹ä¿¡æ¯
+// ÏÔÊ¾¾°µãĞÅÏ¢
 void CampusGuide::showSightTable(Sights& s)
 {
 	SightTable.reset(new Table);
 	SightTable->setRowCount(4);
-	string header = "æ™¯ç‚¹åç§°	";
+	string header = "¾°µãÃû³Æ	";
 	header += s.name;
 	SightTable->setHeader02(header);
-	string line1 = "ç®€ä»‹	"; line1 += s.info;
-	string line2 = "æ¨èæŒ‡æ•°	"; line2 += s.star;
-	string line3 = "æœ‰æ— é¤å…	";
-	string line4 = "æœ‰æ— å•æ‰€	";
-	if (s.canteen) line3 += "æœ‰";
-	else line3 += "æ— ";
-	if (s.toilet) line4 += "æœ‰";
-	else line4 += "æ— ";
+	string line1 = "¼ò½é	"; line1 += s.info;
+	string line2 = "ÍÆ¼öÖ¸Êı	"; line2 += s.star;
+	string line3 = "ÓĞÎŞ²ÍÌü	";
+	string line4 = "ÓĞÎŞ²ŞËù	";
+	if (s.canteen) line3 += "ÓĞ";
+	else line3 += "ÎŞ";
+	if (s.toilet) line4 += "ÓĞ";
+	else line4 += "ÎŞ";
 
 	SightTable->insertData(line1);
 	SightTable->insertData(line2);
 	SightTable->insertData(line3);
 	SightTable->insertData(line4);
 
-	SightTable->move(SightTable->tempX, SightTable->tempY);//è¡¨æ ¼ä½ç½®
+	SightTable->move(SightTable->tempX, SightTable->tempY);//±í¸ñÎ»ÖÃ
 
 	SightTable->show();
 
@@ -315,7 +315,7 @@ void CampusGuide::showSightTable(Sights& s)
 
 }
 
-// è¿ç”¨Floydç®—æ³•æ±‚æœ€çŸ­è·¯å¾„ï¼Œè¿”å›å«æœ‰idçš„è·¯å¾„vector
+// ÔËÓÃFloydËã·¨Çó×î¶ÌÂ·¾¶£¬·µ»Øº¬ÓĞidµÄÂ·¾¶vector
 vector<int> CampusGuide::FindShort(MatGraph& g, int src, int dst)
 {
 	vector<vector<int>> A(MAXV, vector<int>(MAXV, INF));
@@ -353,7 +353,7 @@ vector<int> CampusGuide::FindShort(MatGraph& g, int src, int dst)
 	return routeVec;
 }
  
-// å¯»æ‰¾iåˆ°jçš„æœ€çŸ­è·¯å¾„
+// Ñ°ÕÒiµ½jµÄ×î¶ÌÂ·¾¶
 vector<int> CampusGuide::Dispath(vector<vector<int>> A, vector<vector<int>> path, int n, int i, int j)
 {
 	if (A[i][j] != INF && i != j) 
@@ -379,10 +379,10 @@ bool CampusGuide::Administrate()
 	reminder();
 	if (state == 0)
 	{
-		string str1("è¯·è¾“å…¥ç®¡ç†å‘˜åºåˆ—ç ");
+		string str1("ÇëÊäÈë¹ÜÀíÔ±ĞòÁĞÂë");
 		settextcolor(RGB(255, 120, 0));
 		settextstyle(56, 28, "Bulter");
-		//settextstyle(40, 0, "å®‹ä½“", 0, 0, 800, 0, 0, 0);
+		//settextstyle(40, 0, "ËÎÌå", 0, 0, 800, 0, 0, 0);
 		outtextxy((Window::width() - textwidth(str1.c_str())) / 2,100, str1.c_str());
 		LoginBtn->show();
 		LoginEdit->show();
@@ -399,13 +399,13 @@ bool CampusGuide::Administrate()
 	}
 	else if (LoginBtn->isClicked()&&LoginEdit->text() != "" && passWord != LoginEdit->text())
 	{
-		string str1("åºåˆ—ç é”™è¯¯ï¼Œè¯·æ£€æŸ¥åé‡æ–°è¾“å…¥!");
+		string str1("ĞòÁĞÂë´íÎó£¬Çë¼ì²éºóÖØĞÂÊäÈë!");
 		settextcolor(RGB(221, 255, 148));
 		settextstyle(50, 25, "Bulter");
-		//settextstyle(40, 0, "å®‹ä½“", 0, 0, 800, 0, 0, 0);
+		//settextstyle(40, 0, "ËÎÌå", 0, 0, 800, 0, 0, 0);
 		outtextxy((Window::width() - textwidth(str1.c_str())) / 2,
 			(Window::height() - textheight(str1.c_str())) / 2, str1.c_str());
-		return true;//æŠ±æ­‰æç¤º
+		return true;//±§Ç¸ÌáÊ¾
 	}
 
 
@@ -434,48 +434,48 @@ bool CampusGuide::searchNshow()
 	SightEdit->show();
 	string str = SightEdit->text();
 	if(SightSearchBtn->isClicked()&&!str.empty())
-	if (str == "æ¨±èŠ±åŸå ¡"||str=="æ¨±é¡¶")
+	if (str == "Ó£»¨³Ç±¤"||str=="Ó£¶¥")
 	{
-		::loadimage(&m_bk, "assets/pics/æ¨±èŠ±åŸå ¡.JPG", Window::width(), Window::height());
+		::loadimage(&m_bk, "assets/pics/Pic8.JPG", Window::width(), Window::height());
 	}
-	else if(str == "æ¨±èŠ±å¤§é“")
+	else if(str == "Ó£»¨´óµÀ")
 	{
-		::loadimage(&m_bk, "assets/pics/æ¨±èŠ±å¤§é“.JPG", Window::width(), Window::height());
+		::loadimage(&m_bk, "assets/pics/Pic9.JPG", Window::width(), Window::height());
 	}
-	else if (str == "æ€»å›¾ä¹¦é¦†"||str=="å›¾ä¹¦é¦†")
+	else if (str == "×ÜÍ¼Êé¹İ"||str=="Í¼Êé¹İ")
 	{
-		::loadimage(&m_bk, "assets/pics/æ€»å›¾ä¹¦é¦†.JPG", Window::width(), Window::height());
+		::loadimage(&m_bk, "assets/pics/Pic6.JPG", Window::width(), Window::height());
 	}
-	else if (str == "è®¡ç®—æœºå­¦é™¢")
+	else if (str == "¼ÆËã»úÑ§Ôº")
 	{
-		::loadimage(&m_bk, "assets/pics/è®¡ç®—æœºå­¦é™¢.JPG", Window::width(), Window::height());
+		::loadimage(&m_bk, "assets/pics/Pic1.JPG", Window::width(), Window::height());
 	}
-	else if (str == "ä¸‡æ—åšç‰©é¦†")
+	else if (str == "ÍòÁÖ²©Îï¹İ")
 	{
-		::loadimage(&m_bk, "assets/pics/ä¸‡æ—åšç‰©é¦†.JPG", Window::width(), Window::height());
+		::loadimage(&m_bk, "assets/pics/Pic2.JPG", Window::width(), Window::height());
 	}
-	else if (str == "æ­¦æ±‰å¤§å­¦ç‰ŒåŠ")
+	else if (str == "Îäºº´óÑ§ÅÆ·»")
 	{
-		::loadimage(&m_bk, "assets/pics/ç‰ŒåŠ.JPG", Window::width(), Window::height());
+		::loadimage(&m_bk, "assets/pics/Pic3.JPG", Window::width(), Window::height());
 	}
-	else if (str == "ä¹ä¸€äºŒæ“åœº"||str=="912æ“åœº")
+	else if (str == "¾ÅÒ»¶ş²Ù³¡"||str=="912²Ù³¡")
 	{
-		::loadimage(&m_bk, "assets/pics/912.JPG", Window::width(), Window::height());
+		::loadimage(&m_bk, "assets/pics/Pic12.JPG", Window::width(), Window::height());
 	}
-	else if (str == "ä¸œæ¹–")
+	else if (str == "¶«ºş")
 	{
-		::loadimage(&m_bk, "assets/pics/ä¸œæ¹–.JPG", Window::width(), Window::height());
+		::loadimage(&m_bk, "assets/pics/Pic17.JPG", Window::width(), Window::height());
 	}
-	else if (str == "å“å°”ä½“è‚²é¦†")
+	else if (str == "×¿¶ûÌåÓı¹İ")
 	{
-		::loadimage(&m_bk, "assets/pics/å“å°”ä½“è‚²é¦†.JPG", Window::width(), Window::height());
+		::loadimage(&m_bk, "assets/pics/Pic2.JPG", Window::width(), Window::height());
 	}
 	else if(str!="")
 	{
-		string str1("æŠ±æ­‰ï¼Œè¯·æ£€æŸ¥è¾“å…¥æˆ–å½“å‰æš‚æ— è¯¥æ™¯ç‚¹ä¿¡æ¯!");
+		string str1("±§Ç¸£¬Çë¼ì²éÊäÈë»òµ±Ç°ÔİÎŞ¸Ã¾°µãĞÅÏ¢!");
 		settextcolor(RGB(221,255,148));
 		//settextstyle(60, 30, "Bulter");
-		settextstyle(40, 0, "å®‹ä½“", 0, 0, 800, 0, 0, 0);
+		settextstyle(40, 0, "ËÎÌå", 0, 0, 800, 0, 0, 0);
 		outtextxy((Window::width() - textwidth(str1.c_str()))/2,
 			(Window::height()-textheight(str1.c_str()))/2, str1.c_str());
 		return true;
@@ -491,7 +491,7 @@ void CampusGuide::drawbackground()
 
 void CampusGuide::eventLoop()
 {
-	//è°ƒç”¨å„ä¸ªéƒ¨ä»¶çš„eventå‡½æ•°
+	//µ÷ÓÃ¸÷¸ö²¿¼şµÄeventº¯Êı
 	for (int i = 0; i < sight_btns.size(); i++)
 	{
 		sight_btns[i]->event();
@@ -516,7 +516,7 @@ void CampusGuide::eventLoop()
 }
 
 
-void CampusGuide::placeSB(string s, int x, int y)//ç”»æ™¯ç‚¹æŒ‰é’®
+void CampusGuide::placeSB(string s, int x, int y)//»­¾°µã°´Å¥
 {
 	PushButton* p = new PushButton(s);
 	sight_btns.emplace_back(p);
@@ -527,11 +527,11 @@ void CampusGuide::placeSB(string s, int x, int y)//ç”»æ™¯ç‚¹æŒ‰é’®
 void CampusGuide::reminder()
 {
 	settextcolor(RGB(255, 120, 0));
-	settextstyle(30, 0, "å¾®è½¯é›…é»‘", 0, 0, 880, 0, 0, 0);
-	outtextxy(0, 0, "æŒ‰Escé”®è¿”å›ä¸Šä¸€çº§...");
+	settextstyle(30, 0, "Î¢ÈíÑÅºÚ", 0, 0, 880, 0, 0, 0);
+	outtextxy(0, 0, "°´Esc¼ü·µ»ØÉÏÒ»¼¶...");
 }
 
-// ä»æ–‡ä»¶ä¸­è¯»å–æ™¯ç‚¹ä¿¡æ¯
+// ´ÓÎÄ¼şÖĞ¶ÁÈ¡¾°µãĞÅÏ¢
 void CampusGuide::readSights()
 {
 	ifstream fin("assets/sights.txt");
@@ -544,7 +544,7 @@ void CampusGuide::readSights()
 	
 }
 
-// ä»æ–‡ä»¶ä¸­è¯»å–è·¯å¾„ä¿¡æ¯
+// ´ÓÎÄ¼şÖĞ¶ÁÈ¡Â·¾¶ĞÅÏ¢
 void CampusGuide::readRoutes()
 {
 	ifstream fin("assets/routes.txt");

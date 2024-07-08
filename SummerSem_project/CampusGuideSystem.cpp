@@ -1,8 +1,7 @@
 #include "CampusGuide.h"
 //#include "CampusGuide.cpp"
+
 using namespace std;
-
-
 
 int main()
 {
