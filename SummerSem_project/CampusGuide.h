@@ -63,6 +63,8 @@ public:
 
 	void showSightTable(Sights &s);
 
+	void showTable(Sights &s,int Page);
+
 private:
 
 	vector<Sights> SightList;
@@ -90,8 +92,8 @@ private:
 	//查看附近厕所/食堂:按钮、表格
 	unique_ptr<PushButton> CafeBtn;
 	unique_ptr<PushButton> ToiletBtn;
-	unique_ptr<Table>CafeTable;
-	unique_ptr<Table>ToiletTable;
+	unique_ptr<Table>CafeToiletTable;
+	int Page = -1;//标识当前页面(信息查询) 一共有三层
 
 
 	//查询线路
