@@ -41,7 +41,7 @@ void Table::setHeader(const std::string& header)
 	m_th = ::textheight("m_header.c_str()");
 
 	WidthSupply = 5;
-	m_gridW=::textwidth("12月12日12:12")+WidthSupply;//格子宽度
+	m_gridW=::textwidth("12月12日12:12000000")+WidthSupply;//格子宽度
 	HeightSupply = 40;
 	m_gridH=::textheight("m_header.c_str()")+HeightSupply;//格子高度,40是额外增高的，后续会用到
 
@@ -109,10 +109,10 @@ void Table::drawTableBottom()
 	static bool flag = false;
 	if (!flag)
 	{
-		m_preBtn->move(m_x, m_h + m_y+10);
-		m_nextBtn->move(m_preBtn->x() + m_preBtn->width(), m_preBtn->y());
-		m_firstBtn->move(m_nextBtn->x() + m_nextBtn->width(), m_nextBtn->y());
-		m_lastBtn->move(m_firstBtn->x() + m_firstBtn->width(), m_firstBtn->y());
+		m_preBtn->move(m_x-210, m_h + m_y+10);
+		m_nextBtn->move(m_preBtn->x() + m_preBtn->width()+2, m_preBtn->y());
+		m_firstBtn->move(m_nextBtn->x() + m_nextBtn->width()+2, m_nextBtn->y());
+		m_lastBtn->move(m_firstBtn->x() + m_firstBtn->width()+2, m_firstBtn->y());
 		//flag = true;
 	}
 	
