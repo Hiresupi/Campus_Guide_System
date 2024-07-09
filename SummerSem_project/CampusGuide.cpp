@@ -125,7 +125,11 @@ void CampusGuide::run()
 					//ESC退出操作 返回主界面
 					if (Window::getMsg().vkcode == VK_ESCAPE)
 					{
-						if (signal != -1)
+						if (Page != -1)
+						{
+							Page = -1;
+						}
+						else if (signal != -1)
 						{
 							signal = -1;
 						}//信息查询功能子界面
@@ -275,12 +279,31 @@ void CampusGuide::ShowInfo(int &signal)
 			::loadimage(&sightPic, file.c_str(), 370, 270);
 			flag1 = signal;
 		}
-
-		putimage(8, 128, 400, 300, &sightPic, 0, 0);//放景点图片
-
-		showSightTable(SightList[signal]);
-
 		putimage(380, 570, &LOGO);//放logo
+
+		if (CafeBtn->isClicked())
+		{
+			Page = 1;
+		}
+		else if (ToiletBtn->isClicked())
+		{
+			Page = 2;
+		}
+
+		if (Page == 1)
+		{
+			CafeTable.reset(new Table);
+		}
+		else if (Page == 2)
+		{
+
+		}
+		else
+		{
+			putimage(8, 128, 400, 300, &sightPic, 0, 0);//放景点图片
+
+			showSightTable(SightList[signal]);
+		}
 	}
 }
 
@@ -312,6 +335,17 @@ void CampusGuide::showSightTable(Sights& s)
 
 	CafeBtn->show();
 	ToiletBtn->show();
+
+}
+
+void CampusGuide::showTable(Sights& s, int Page)
+{
+	CafeToiletTable.reset(new Table);
+	CafeToiletTable->setRowCount(5);
+	string header = "景点名	距所在地最短距离";
+	CafeToiletTable->setHeader(header);
+	//接下来就是insert一下，然后就可以show了
+
 
 }
 
