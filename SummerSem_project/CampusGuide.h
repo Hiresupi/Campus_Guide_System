@@ -33,41 +33,57 @@ public:
 	int menu();
 	void run();
 
+	void placeSB(string s, int x, int y);
+
 	void ShowPic();
 
 	bool searchNshow();
 
 	int ShowMap();
 
+	void showSightTable(Sights& s);
+
+	void showTableSet(Sights& s, int Page);
+
+	void searchFacility(MatGraph& g, int page, int id, vector<string>& svec, vector<int>& ivec);
+
 	void ShowInfo(int &signal);
 
+
+	//路径功能
 	void Floyd(MatGraph& g, vector<vector<int>>& A, vector<vector<int>>& path);
 
 	vector<int> FindShort(MatGraph& g, int src, int dst);
 
 	vector<int> Dispath(vector<vector<int>> A, vector<vector<int>> path, int n, int i, int j);
 
-	bool Administrate();
+	void ShowAllRoute();
 
-	void DrawArrow();
+	int NavigateStartHint();
+
+	int NavigateEndHint();
+
+	int  NavigateHint(string s="请选择出发景点");
+
+	void drawLine(int &start, int &end);
+
+
+	bool Administrate();
 
 	void drawbackground();
 
 	void eventLoop();
 
-	void placeSB(string s,int x,int y);
+
 
 	void reminder();
+
+
+
 
 	void readSights();
 
 	int readRoutes();
-
-	void showSightTable(Sights &s);
-
-	void showTableSet(Sights &s,int Page);
-
-	void searchFacility(MatGraph& g, int page, int id, vector<string>& svec, vector<int>& ivec);
 
 private:
 
@@ -104,6 +120,7 @@ private:
 
 	//查询线路
 	unique_ptr<PushButton>ShortBtn;
+	int curCondition=-1;
 
 
 	//管理员

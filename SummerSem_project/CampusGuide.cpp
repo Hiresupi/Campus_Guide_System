@@ -16,8 +16,8 @@ CampusGuide::CampusGuide()
 
 	//主界面按钮初始化
 	menu_btns.emplace_back(new PushButton("热门景点速查"));
-	menu_btns.emplace_back(new PushButton("景点查询"));
-	menu_btns.emplace_back(new PushButton("路线查询"));
+	menu_btns.emplace_back(new PushButton("查询开放景点"));
+	menu_btns.emplace_back(new PushButton("查询可行路线"));
 	menu_btns.emplace_back(new PushButton("管理员入口"));
 	menu_btns.emplace_back(new PushButton("退出"));
 	//menu_btns.emplace_back(new PushButton("退票"));
@@ -93,6 +93,10 @@ CampusGuide::CampusGuide()
 	}
 
 
+	//查询路线部件初始化
+	ShortBtn.reset(new PushButton("显示最短距离路线"));
+	ShortBtn->move(755, 3);
+
 }
 
 
@@ -110,6 +114,7 @@ void CampusGuide::run()
 		bool saySorry2 = false;
 		int signal=-1;//接收鼠标点击信号
 
+		int start=-1, end=-1;//接收查路线时的起始和结尾
 
 		while (true)
 		{
@@ -126,6 +131,16 @@ void CampusGuide::run()
 					//ESC退出操作 返回主界面
 					if (Window::getMsg().vkcode == VK_ESCAPE)
 					{
+						if (start!=-1&&end!=-1)
+						{
+							end = -1;
+							curCondition = -1;
+						}
+						else if (start != -1 && end == -1)
+						{
+							start = -1;
+						}
+						else
 						if (Page != -1)
 						{
 							Page = -1;
@@ -174,7 +189,11 @@ void CampusGuide::run()
 				ShowInfo(signal);
 				break;
 			case CampusGuide::FIND:
+				drawLine(start,end);
 				ShowMap();
+
+				
+
 				break;
 			case CampusGuide::MODIFY:
 				saySorry2=Administrate();
@@ -474,6 +493,107 @@ vector<int> CampusGuide::Dispath(vector<vector<int>> A, vector<vector<int>> path
 	}
 }
 
+void CampusGuide::ShowAllRoute()
+{
+	setlinestyle(PS_DASHDOT,3);
+	setlinecolor(RGB(50, 19, 176));
+	//中点坐标为（y+SBheight/2，x+SBwidth/2）
+	for(int i=0;i<SightList.size();i++)
+		for(int j=0;j<i;j++)
+			if (RWeight[i][j] != INF && RWeight[i][j] != 0)
+			{
+				//画虚线
+				int beginX = SightList[i].x + SBheight / 2;
+				int beginY= SightList[i].y + SBwidth / 2;
+				int endX = SightList[j].x + SBheight/ 2;
+				int endY = SightList[j].y + SBwidth / 2;
+				line(beginX, beginY, endX, endY);
+			}
+
+
+
+}
+
+//int CampusGuide::NavigateStartHint()
+//{
+//	settextcolor(RGB(147, 94, 230));
+//	settextstyle(40, 0, "微软雅黑", 0, 0, 880, 0, 0, 0);
+//	outtextxy(720, 0, "请选择出发景点");
+//	for (int i = 0; i < sight_btns.size(); i++)
+//		if (sight_btns[i]->isClicked()) return i;
+//	return -1;
+//}
+//
+//int CampusGuide::NavigateEndHint()
+//{
+//	settextcolor(RGB(147, 94, 230));
+//	settextstyle(40, 0, "微软雅黑", 0, 0, 880, 0, 0, 0);
+//	outtextxy(720, 0, "请选择目标景点");
+//	for (int i = 0; i < sight_btns.size(); i++)
+//		if (sight_btns[i]->isClicked()) return i;
+//
+//	return -1;
+//}
+
+int CampusGuide::NavigateHint(string s)
+{
+	settextcolor(RGB(147, 94, 230));
+	settextstyle(40, 0, "微软雅黑", 0, 0, 880, 0, 0, 0);
+	outtextxy(750, 0,s.c_str());
+	for (int i = 0; i < sight_btns.size(); i++)
+		if (sight_btns[i]->isClicked()) return i;
+
+	return -1;
+	return 0;
+}
+
+void CampusGuide::drawLine(int &start, int &end)
+{
+	if (start == -1)
+	{
+		ShowAllRoute();
+		//ShowMap();
+		start = NavigateHint();
+	}
+	else if (start != -1 && end == -1)
+	{
+		end = NavigateHint("请选择目标景点");
+		ShowAllRoute();
+		//ShowMap();
+	}
+	else
+	{
+		//ShowMap();
+		ShortBtn->show();
+		if (ShortBtn->isClicked())
+		{
+			curCondition = 1;
+
+		}
+		if (curCondition == 1)
+		{
+			setlinestyle(PS_DASHDOT, 5);
+			setlinecolor(RGB(50, 19, 176));
+			int beginX = SightList[start].x + SBheight / 2;
+			int beginY = SightList[start].y + SBwidth / 2;
+			int endX = SightList[end].x + SBheight / 2;
+			int endY = SightList[end].y + SBwidth / 2;
+			line(beginX, beginY, endX, endY);
+			//ShowMap();
+		}
+		else
+		{
+			ShowAllRoute();
+
+		}
+		//ShowMap();
+
+	}
+
+}
+
+
+
 
 bool CampusGuide::Administrate()
 {
@@ -613,6 +733,8 @@ void CampusGuide::eventLoop()
 	//if (CafeToiletTable != NULL)
 	CafeToiletTable->event();
 
+
+	ShortBtn->event();
 }
 
 
