@@ -4,8 +4,8 @@
 CampusGuide::CampusGuide()
 {
 	readSights();
-	readRoutes();
-
+	int routeCnt=readRoutes();
+	M.createMatGraph(RWeight, SightList.size(), routeCnt, SightList);
 	//构造
 	LOGFONT f;
 	gettextstyle(&f);
@@ -68,8 +68,9 @@ CampusGuide::CampusGuide()
 	//景点信息查看初始化
 
 
-	ToiletBtn.reset(new PushButton("附近厕所", 435, 450));
-	CafeBtn.reset(new PushButton("附近餐厅", 710,450));
+	ToiletBtn.reset(new PushButton("附近有厕所景点", 435, 450));
+	CafeBtn.reset(new PushButton("附近有餐厅景点", 710,450));
+	CafeToiletTable.reset(new Table);
 
 
 	//管理员入口初始化
@@ -284,22 +285,27 @@ void CampusGuide::ShowInfo(int &signal)
 		if (CafeBtn->isClicked())
 		{
 			Page = 1;
+
+
 		}
 		else if (ToiletBtn->isClicked())
 		{
 			Page = 2;
 		}
 
-		if (Page == 1)
+		if (Page != -1)
 		{
-			CafeToiletTable.reset(new Table);
+			//CafeToiletTable.reset(new Table);
+			if (isChangedFlag != Page)
+			{
+				showTableSet(SightList[signal], Page);
+				isChangedFlag = Page;
+			}
+			CafeToiletTable->show();
 		}
-		else if (Page == 2)
+		else 
 		{
-
-		}
-		else
-		{
+			isChangedFlag = Page;
 			putimage(8, 128, 400, 300, &sightPic, 0, 0);//放景点图片
 
 			showSightTable(SightList[signal]);
@@ -374,10 +380,10 @@ void CampusGuide::showSightTable(Sights& s)
 
 void CampusGuide::searchFacility(MatGraph& g, int page, int id, vector<string>& svec, vector<int>& ivec)
 {
-	vector<vector<int>> A;
-	vector<vector<int>> path;
+	vector<vector<int>> A(MAXV, vector<int>(MAXV, INF));
+	vector<vector<int>> path(MAXV, vector<int>(MAXV, INF));
 	Floyd(g, A, path);
-	if (page == 1)
+	if (page == 2)//厕所
 	{
 		for (int i = 0; i < g.n; i++)
 		{
@@ -388,7 +394,7 @@ void CampusGuide::searchFacility(MatGraph& g, int page, int id, vector<string>& 
 			}
 		}
 	}
-	else
+	else if(page==1)//餐厅
 	{
 		for (int i = 0; i < g.n; i++)
 		{
@@ -417,14 +423,24 @@ void CampusGuide::searchFacility(MatGraph& g, int page, int id, vector<string>& 
 	return;
 }
 
-void CampusGuide::showTable(Sights& s, int Page)
+void CampusGuide::showTableSet(Sights& s, int Page)
 {
 	CafeToiletTable.reset(new Table);
 	CafeToiletTable->setRowCount(5);
 	string header = "景点名	距所在地最短距离";
 	CafeToiletTable->setHeader(header);
 	//接下来就是insert一下，然后就可以show了
-
+	vector<string>nameV; vector<int>distV;
+	searchFacility(M, Page, s.id, nameV, distV);
+	string str;
+	for (int i = 0; i < nameV.size(); i++)
+	{
+		str = nameV[i] + "	" + to_string(distV[i]);
+		CafeToiletTable->insertData(str);
+	}
+	CafeToiletTable->move(CafeToiletTable->middlePut, 150);
+	//CafeToiletTable->show();
+	//CafeToiletTable->event();
 
 }
 
@@ -497,11 +513,6 @@ bool CampusGuide::Administrate()
 
 	return false;
 }
-
-void CampusGuide::DrawArrow()
-{
-}
-
 
 
 void CampusGuide::ShowPic()
@@ -599,6 +610,9 @@ void CampusGuide::eventLoop()
 	for (int i = 0; i < subMenu_btns.size(); i++)
 		subMenu_btns[i]->event();
 
+	//if (CafeToiletTable != NULL)
+	CafeToiletTable->event();
+
 }
 
 
@@ -631,7 +645,7 @@ void CampusGuide::readSights()
 }
 
 // 从文件中读取路径信息
-void CampusGuide::readRoutes()
+int CampusGuide::readRoutes()
 {
 	ifstream fin("assets/routes.txt");
 	RWeight = vector<vector<int>>(MAXV, vector<int>(MAXV, INF));
@@ -641,11 +655,14 @@ void CampusGuide::readRoutes()
 	{
 		RWeight[i][i] = 0;
 	}
+	int cnt = 0;
 	while (fin >> i >> j >> length)
 	{
+		cnt++;
 		RWeight[i][j] = length;
 		RWeight[j][i] = length;
 	}
+	return cnt;
 }
 
 

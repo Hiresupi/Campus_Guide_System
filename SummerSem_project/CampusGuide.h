@@ -61,16 +61,17 @@ public:
 
 	void readSights();
 
-	void readRoutes();
+	int readRoutes();
 
 	void showSightTable(Sights &s);
 
-	void showTable(Sights &s,int Page);
+	void showTableSet(Sights &s,int Page);
 
 	void searchFacility(MatGraph& g, int page, int id, vector<string>& svec, vector<int>& ivec);
 
 private:
 
+	MatGraph M;
 	vector<Sights> SightList;
 	vector<vector<int>> RWeight;
 
@@ -98,6 +99,7 @@ private:
 	unique_ptr<PushButton> ToiletBtn;
 	unique_ptr<Table>CafeToiletTable;
 	int Page = -1;//标识当前页面(信息查询) 一共有三层
+	int isChangedFlag=-1;
 
 
 	//查询线路
