@@ -292,7 +292,7 @@ void CampusGuide::ShowInfo(int &signal)
 
 		if (Page == 1)
 		{
-			CafeTable.reset(new Table);
+			CafeToiletTable.reset(new Table);
 		}
 		else if (Page == 2)
 		{
@@ -306,6 +306,40 @@ void CampusGuide::ShowInfo(int &signal)
 		}
 	}
 }
+
+void CampusGuide::Floyd(MatGraph& g, vector<vector<int>>& A, vector<vector<int>>& path)
+{
+	for (int i = 0; i < g.n; i++)
+	{
+		for (int j = 0; j < g.n; j++)
+		{
+			A[i][j] = g.edges[i][j];
+			if (i != j && g.edges[i][j] < INF)
+			{
+				path[i][j] = i;
+			}
+			else
+			{
+				path[i][j] = -1;
+			}
+		}
+	}
+	for (int k = 0; k < g.n; k++)
+	{
+		for (int i = 0; i < g.n; i++)
+		{
+			for (int j = 0; j < g.n; j++)
+			{
+				if (A[i][j] > A[i][k] + A[k][j])
+				{
+					A[i][j] = A[i][k] + A[k][j];
+					path[i][j] = path[k][j];
+				}
+			}
+		}
+	}
+}
+
 
 // 显示景点信息
 void CampusGuide::showSightTable(Sights& s)
@@ -338,6 +372,51 @@ void CampusGuide::showSightTable(Sights& s)
 
 }
 
+void CampusGuide::searchFacility(MatGraph& g, int page, int id, vector<string>& svec, vector<int>& ivec)
+{
+	vector<vector<int>> A;
+	vector<vector<int>> path;
+	Floyd(g, A, path);
+	if (page == 1)
+	{
+		for (int i = 0; i < g.n; i++)
+		{
+			if (g.vexs[i].toilet == 1)
+			{
+				svec.push_back(g.vexs[i].name);
+				ivec.push_back(A[id][i]);
+			}
+		}
+	}
+	else
+	{
+		for (int i = 0; i < g.n; i++)
+		{
+			if (g.vexs[i].canteen == 1)
+			{
+				svec.push_back(g.vexs[i].name);
+				ivec.push_back(A[id][i]);
+			}
+		}
+	}
+	for (int i = 0; i < ivec.size() - 1; i++)
+	{
+		for (int j = ivec.size() - 1; j > 0; j--)
+		{
+			if (ivec[j] < ivec[j - 1])
+			{
+				int tmp = ivec[j];
+				string stmp = svec[j];
+				ivec[j] = ivec[j - 1];
+				ivec[j - 1] = tmp;
+				svec[j] = svec[j - 1];
+				svec[j - 1] = stmp;
+			}
+		}
+	}
+	return;
+}
+
 void CampusGuide::showTable(Sights& s, int Page)
 {
 	CafeToiletTable.reset(new Table);
@@ -354,43 +433,15 @@ vector<int> CampusGuide::FindShort(MatGraph& g, int src, int dst)
 {
 	vector<vector<int>> A(MAXV, vector<int>(MAXV, INF));
 	vector<vector<int>> path(MAXV, vector<int>(MAXV, INF));
-	for (int i = 0; i < g.n; i++)
-	{
-		for (int j = 0; j < g.n; j++)
-		{
-			A[i][j] = g.edges[i][j];
-			if (i != j && g.edges[i][j] < INF)
-			{
-				path[i][j] = i;
-			}
-			else
-			{
-				path[i][j] = -1;
-			}
-		}
-	}
-	for (int k = 0; k < g.n; k++)
-	{
-		for (int i = 0; i < g.n; i++)
-		{
-			for (int j = 0; j < g.n; j++)
-			{
-				if (A[i][j] > A[i][k] + A[k][j])
-				{
-					A[i][j] = A[i][k] + A[k][j];
-					path[i][j] = path[k][j];
-				}
-			}
-		}
-	}
+	Floyd(g, A, path);
 	vector<int> routeVec = Dispath(A, path, g.n, src, dst);
 	return routeVec;
 }
- 
+
 // 寻找i到j的最短路径
 vector<int> CampusGuide::Dispath(vector<vector<int>> A, vector<vector<int>> path, int n, int i, int j)
 {
-	if (A[i][j] != INF && i != j) 
+	if (A[i][j] != INF && i != j)
 	{
 		vector <int> apath;
 		cout << "length of the shortest route is" << A[i][j];
@@ -406,6 +457,7 @@ vector<int> CampusGuide::Dispath(vector<vector<int>> A, vector<vector<int>> path
 		return apath;
 	}
 }
+
 
 bool CampusGuide::Administrate()
 {

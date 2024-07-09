@@ -41,6 +41,8 @@ public:
 
 	void ShowInfo(int &signal);
 
+	void Floyd(MatGraph& g, vector<vector<int>>& A, vector<vector<int>>& path);
+
 	vector<int> FindShort(MatGraph& g, int src, int dst);
 
 	vector<int> Dispath(vector<vector<int>> A, vector<vector<int>> path, int n, int i, int j);
@@ -64,6 +66,8 @@ public:
 	void showSightTable(Sights &s);
 
 	void showTable(Sights &s,int Page);
+
+	void searchFacility(MatGraph& g, int page, int id, vector<string>& svec, vector<int>& ivec);
 
 private:
 
