@@ -8,11 +8,11 @@ class Sights
 {
 public:
 	int id = 0;   // 编号
-	std::string name = "";   // 名字
+	std::string name = "无";   // 名字
 	int x = 0;   // x坐标
 	int y = 0;   // y坐标  
-	std::string star = ""; // 推荐指数
-	std::string info = "";   // 信息
+	std::string star = "★"; // 推荐指数
+	std::string info = "无";   // 信息
 	bool canteen = 0;
 	bool toilet = 0;
 
