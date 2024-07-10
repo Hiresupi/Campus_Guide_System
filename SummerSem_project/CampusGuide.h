@@ -7,7 +7,8 @@
 #include "Table.h"
 #include "LineEdit.h"
 #include "MatGraph.h"
-#include<vector>
+#include <sstream>
+#include <vector>
 
 
 using namespace std;
@@ -84,6 +85,10 @@ public:
 	void readSights();
 
 	int readRoutes();
+
+	void addSights(string sightStr);
+
+	void saveToFile();
 
 private:
 

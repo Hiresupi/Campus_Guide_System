@@ -808,4 +808,34 @@ int CampusGuide::readRoutes()
 	return cnt;
 }
 
+void CampusGuide::addSights(string sightStr)
+{
+	Sights stmp;
+	istringstream strin;
+	strin >> stmp.name >> stmp.x >> stmp.y
+		>> stmp.info >> stmp.toilet >> stmp.canteen;
+	stmp.id = SightList.size();
+	SightList.push_back(stmp);
+}
+
+void CampusGuide::saveToFile()
+{
+	ofstream fout("assets/sights.txt");
+	for (auto sight : SightList)
+	{
+		fout << sight << endl;
+	}
+	fout.open("assets/routes.txt");
+	for (int i = 0; i < RWeight.size(); i++)
+	{
+		for (int j = 0; j < i; j++)
+		{
+			if (RWeight[i][j] != INF)
+			{
+				fout << j << "	" << i << "	" << RWeight[i][j] << endl;
+			}
+		}
+	}
+}
+
 

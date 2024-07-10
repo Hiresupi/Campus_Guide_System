@@ -17,8 +17,8 @@ std::istream& operator>>(std::istream& is, Sights& item)
 
 std::ostream& operator<<(std::ostream& os, const Sights& item)
 {
-	os << item.name << item.x << item.y
-		<< item.id << item.star 
-		<< item.info << item.canteen << item.toilet;
+	os << item.name << "	" << item.x << "	" 
+		<< item.y << "	" << item.id << "	" << item.star << "	"
+		<< item.info << "	" << item.canteen << "	" << item.toilet;
     return os;
 }
