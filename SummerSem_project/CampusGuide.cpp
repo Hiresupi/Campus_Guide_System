@@ -116,6 +116,8 @@ void CampusGuide::run()
 
 		int start=-1, end=-1;//接收查路线时的起始和结尾
 
+		vector<int>distV;//存放最短路径id
+
 		while (true)
 		{
 			//cout << "123" << endl;
@@ -133,11 +135,15 @@ void CampusGuide::run()
 					{
 						if (start!=-1&&end!=-1)
 						{
+							for (int i = 0; i < distV.size(); i++)
+								sight_btns[distV[i]]->backNorm();
+							sight_btns[end]->backNorm();
 							end = -1;
 							curCondition = -1;
 						}
 						else if (start != -1 && end == -1)
 						{
+							sight_btns[start]->backNorm();
 							start = -1;
 						}
 						else
@@ -189,7 +195,7 @@ void CampusGuide::run()
 				ShowInfo(signal);
 				break;
 			case CampusGuide::FIND:
-				drawLine(start,end);
+				drawLine(start,end,distV);
 				ShowMap();
 
 				
@@ -272,6 +278,7 @@ int CampusGuide::ShowMap()
 		sight_btns[i]->event();
 		if (sight_btns[i]->isClicked())
 		{
+			//sight_btns[i]->isChosen();
 			return i;
 		}
 	}
@@ -444,6 +451,7 @@ void CampusGuide::searchFacility(MatGraph& g, int page, int id, vector<string>& 
 
 void CampusGuide::showTableSet(Sights& s, int Page)
 {
+	//page标识是厕所页面还是餐厅页面
 	CafeToiletTable.reset(new Table);
 	CafeToiletTable->setRowCount(5);
 	string header = "景点名	距所在地最短距离";
@@ -464,13 +472,13 @@ void CampusGuide::showTableSet(Sights& s, int Page)
 }
 
 // 运用Floyd算法求最短路径，返回含有id的路径vector
-vector<int> CampusGuide::FindShort(MatGraph& g, int src, int dst)
+int CampusGuide::FindShort(MatGraph& g, int src, int dst, vector<int>& distVec)
 {
 	vector<vector<int>> A(MAXV, vector<int>(MAXV, INF));
 	vector<vector<int>> path(MAXV, vector<int>(MAXV, INF));
 	Floyd(g, A, path);
-	vector<int> routeVec = Dispath(A, path, g.n, src, dst);
-	return routeVec;
+	distVec = Dispath(A, path, g.n, src, dst);
+	return A[src][dst];
 }
 
 // 寻找i到j的最短路径
@@ -479,7 +487,6 @@ vector<int> CampusGuide::Dispath(vector<vector<int>> A, vector<vector<int>> path
 	if (A[i][j] != INF && i != j)
 	{
 		vector <int> apath;
-		cout << "length of the shortest route is" << A[i][j];
 		apath.push_back(j);
 		int pre = path[i][j];
 		while (pre != i)
@@ -544,10 +551,9 @@ int CampusGuide::NavigateHint(string s)
 		if (sight_btns[i]->isClicked()) return i;
 
 	return -1;
-	return 0;
 }
 
-void CampusGuide::drawLine(int &start, int &end)
+void CampusGuide::drawLine(int &start, int &end, vector<int>&distV)
 {
 	if (start == -1)
 	{
@@ -555,14 +561,18 @@ void CampusGuide::drawLine(int &start, int &end)
 		//ShowMap();
 		start = NavigateHint();
 	}
-	else if (start != -1 && end == -1)
+	else if ((start != -1 && end == -1)||start==end)
 	{
+	
 		end = NavigateHint("请选择目标景点");
 		ShowAllRoute();
+		sight_btns[start]->isChosen();
 		//ShowMap();
 	}
 	else
 	{
+		sight_btns[start]->isChosen();
+		sight_btns[end]->isChosen();
 		//ShowMap();
 		ShortBtn->show();
 		if (ShortBtn->isClicked())
@@ -572,13 +582,24 @@ void CampusGuide::drawLine(int &start, int &end)
 		}
 		if (curCondition == 1)
 		{
-			setlinestyle(PS_DASHDOT, 5);
-			setlinecolor(RGB(50, 19, 176));
-			int beginX = SightList[start].x + SBheight / 2;
-			int beginY = SightList[start].y + SBwidth / 2;
-			int endX = SightList[end].x + SBheight / 2;
-			int endY = SightList[end].y + SBwidth / 2;
-			line(beginX, beginY, endX, endY);
+			int dist = FindShort(M, start, end, distV);
+			string str = "全程共" + to_string(dist) + "m";
+			settextcolor(RGB(147, 94, 230));
+			outtextxy(820, 610, str.c_str());
+			for (int i = 0; i < distV.size()-1; i++)
+			{
+				if (i > 0) sight_btns[distV[i]]->isChosen();
+				setlinestyle(PS_SOLID, 6);
+				setlinecolor(RGB(50, 19, 176));
+				int beginX = SightList[distV[i]].x + SBheight / 2;
+				int beginY = SightList[distV[i]].y + SBwidth / 2;
+				int endX = SightList[distV[i+1]].x + SBheight / 2;
+				int endY = SightList[distV[i+1]].y + SBwidth / 2;
+				line(beginX, beginY, endX, endY);
+			}
+
+
+
 			//ShowMap();
 		}
 		else

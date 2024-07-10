@@ -33,3 +33,13 @@ void PushButton::show2()//¾°µãÓÃ
 	::outtextxy(tx, ty, m_text.c_str());
 
 }
+
+void PushButton::isChosen()
+{
+	this->normal_c= RGB(147, 94, 230);
+}
+
+void PushButton::backNorm()
+{
+	this->normal_c= RGB(232, 232, 236);
+}
