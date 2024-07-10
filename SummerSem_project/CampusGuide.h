@@ -59,9 +59,9 @@ public:
 
 	void ShowAllRoute();
 
-	int NavigateStartHint();
+	//int NavigateStartHint();
 
-	int NavigateEndHint();
+	//int NavigateEndHint();
 
 	int  NavigateHint(string s="请选择出发景点");
 
@@ -69,6 +69,7 @@ public:
 
 
 	bool Administrate();
+
 
 	void drawbackground();
 
@@ -90,6 +91,7 @@ private:
 	MatGraph M;
 	vector<Sights> SightList;
 	vector<vector<int>> RWeight;
+
 
 	IMAGE m_bk;
 	int flag = 0;//标识背景图片状态，减少加载背景次数，更流畅
@@ -129,6 +131,11 @@ private:
 	string passWord = "boys12138";
 	int state=-1;
 	vector<unique_ptr<PushButton>>subMenu_btns;
+	int operationPage = -1;//标识不同操作的页面
+	unique_ptr <LineEdit> addSightEdit;
+	unique_ptr<PushButton>addSightBtn;
+
+	
 
 
 };
