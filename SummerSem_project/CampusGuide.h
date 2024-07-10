@@ -53,7 +53,7 @@ public:
 	//路径功能
 	void Floyd(MatGraph& g, vector<vector<int>>& A, vector<vector<int>>& path);
 
-	vector<int> FindShort(MatGraph& g, int src, int dst);
+	int FindShort(MatGraph& g, int src, int dst, vector<int>& distVec);
 
 	vector<int> Dispath(vector<vector<int>> A, vector<vector<int>> path, int n, int i, int j);
 
@@ -65,7 +65,7 @@ public:
 
 	int  NavigateHint(string s="请选择出发景点");
 
-	void drawLine(int &start, int &end);
+	void drawLine(int &start, int &end, vector<int>& distV);
 
 
 	bool Administrate();
