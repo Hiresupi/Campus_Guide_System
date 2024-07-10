@@ -2,7 +2,7 @@
 
 using namespace std;
 
-// ÖŘÔŘĘäČëĘäłöÔËËăˇű
+// ????????????????��?
 std::istream& operator>>(std::istream& is, Sights& item)
 {
 	is >> item.name >> item.x >> item.y

@@ -7,17 +7,17 @@
 class Sights
 {
 public:
-	int id = 0;   // ç¼–å·
-	std::string name = "æ— ";   // åå­—
-	int x = 0;   // xåæ ‡
-	int y = 0;   // yåæ ‡  
-	std::string star = "â˜…"; // æ¨èæŒ‡æ•°
-	std::string info = "æ— ";   // ä¿¡æ¯
+	int id = 0;   // ±àºÅ
+	std::string name = "ÎŞ";   // Ãû×Ö
+	int x = 0;   // x×ø±ê
+	int y = 0;   // y×ø±ê  
+	std::string star = "¡ï"; // ÍÆ¼öÖ¸Êı
+	std::string info = "ÎŞ";   // ĞÅÏ¢
 	bool canteen = 0;
 	bool toilet = 0;
 
 
-	// æ„é€ å‡½æ•°
+	// ¹¹Ôìº¯Êı
 	Sights() = default;
 	Sights(int id, const std::string name, int x,
 		int y, const std::string star, const std::string address, 
@@ -26,6 +26,6 @@ public:
 
 };
 
-// é‡è½½è¾“å…¥è¾“å‡ºè¿ç®—ç¬¦
+// ÖØÔØÊäÈëÊä³öÔËËã·û
 std::istream& operator>>(std::istream& is, Sights& item);
 std::ostream& operator<<(std::ostream& os, const Sights& item);
