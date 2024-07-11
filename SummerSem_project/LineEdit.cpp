@@ -6,6 +6,7 @@ LineEdit::LineEdit(int x, int y, int w, int h)
 void LineEdit::show()
 {
 	setfillcolor(cur_c);
+	setlinecolor(RGB(222, 93, 93));
 	::fillroundrect(m_x, m_y, m_x + m_w, m_y + m_h, 20, 20);
 
 	settextcolor(RGB(127, 181, 114));
@@ -25,6 +26,13 @@ void LineEdit::show()
 		}
 		
 	}
+}
+
+bool LineEdit::isValid(int eleNum)
+{
+	if (eleNum == count(m_text.begin(), m_text.end(), ' ') + 1) return true;
+
+	return false;
 }
 
 bool LineEdit::textChanged()

@@ -12,7 +12,7 @@ CampusGuide::CampusGuide()
 	f.lfQuality = ANTIALIASED_QUALITY;//文字抗锯齿
 	settextstyle(&f);
 	::settextstyle(20, 0, "楷体", 0, 0, 100, 0, 0, 0); //settextstyle(120, 60, "黑体", 0, 0, 880, 0, 1, 0);
-	::loadimage(&m_bk, "assets/WHU3.JPEG", Window::width(), Window::height());
+	::loadimage(&m_bk, "assets/WHU.JPEG", Window::width(), Window::height());
 
 	//主界面按钮初始化
 	menu_btns.emplace_back(new PushButton("热门景点速查"));
@@ -81,16 +81,14 @@ CampusGuide::CampusGuide()
 	LoginEdit.reset(new LineEdit(100, 170, 570, 45));
 	LoginEdit->setTitle("请输入密钥");
 
-	subMenu_btns.emplace_back(new PushButton("增加新景点"));
-	subMenu_btns.emplace_back(new PushButton("增加新路线"));
+	subMenu_btns.emplace_back(new PushButton("增加新景点及路线"));
 	subMenu_btns.emplace_back(new PushButton("删除景点"));
-	subMenu_btns.emplace_back(new PushButton("删除路线"));
 
 	for (int i = 0; i < subMenu_btns.size(); i++)
 	{
 		subMenu_btns[i]->setFixedSize(250, 45);
 		int bx = (Window::width() - subMenu_btns[i]->width()) / 2;
-		int by = 240 + i * (subMenu_btns[i]->height() + 20);
+		int by = 240 + i * (subMenu_btns[i]->height() + 30);
 		//移动到中间
 		subMenu_btns[i]->move(bx, by);
 	}
@@ -98,6 +96,11 @@ CampusGuide::CampusGuide()
 	addSightEdit.reset(new LineEdit(100, 200, 570, 45));
 	addSightBtn.reset(new PushButton("添加", 700, 200));
 	addSightEdit->setTitle("请按照格式输入！");
+
+	//加路输入部件
+	weightEdit.reset(new LineEdit(700,3,150,30));
+	weightEdit->setTitle("请输入距离（默认单位：m）");
+	confirmBtn.reset(new PushButton("确认",855,3,100,30));
 
 }
 
@@ -118,7 +121,12 @@ void CampusGuide::run()
 
 		int start=-1, end=-1;//接收查路线时的起始和结尾
 
+		int routeBuild = -1;//管理员加路径页面转化标识
+		bool alreadyAdd = false;//已经加了一条路线了
+
 		vector<int>distV;//存放最短路径id
+
+
 
 		while (true)
 		{
@@ -157,9 +165,89 @@ void CampusGuide::run()
 						{
 							signal = -1;
 						}//信息查询功能子界面
+
 						else if (operationPage!=-1)
 						{
-							operationPage = -1;
+							if (operationPage == 2)//选择新景点位置
+							{
+								operationPage = 0;
+								::loadimage(&m_bk, "assets/WHU.JPEG", Window::width(), Window::height());
+								flag = 1;
+							}
+							else if (operationPage == 3)//添加路线
+							{
+								
+								if (routeAdded!=0||alreadyAdd)//有路径加入,意味着成功添加了一个景点
+								{
+									//sight_btns[routeBuild]->backNorm();
+									//routeBuild = -1;
+									if (routeBuild!=-1)//被点击了，需要回退到 “继续加路”
+									{
+										sight_btns[routeBuild]->backNorm();
+										routeBuild = -1;
+										operationPage = 3;
+										if (routeAdded != 0)
+										{
+											updateMatGraph(routeAdded);//更新route
+											routeAdded = 0;
+										}
+										//sight_btns[SightList.size() - 1]->backNorm();
+									}
+									else//没有被点击，那么直接退到前面
+									{
+										if (routeAdded != 0)
+										{
+											updateMatGraph(routeAdded);//更新route
+											routeAdded = 0;
+										}
+										operationPage = 0;
+										alreadyAdd = false;
+										sight_btns[SightList.size() - 1]->backNorm();
+										addSightEdit->setText("");
+										::loadimage(&m_bk, "assets/WHU.JPEG", Window::width(), Window::height());//背景切换
+										flag = 1;
+										//SightList.pop_back();
+										//sight_btns.pop_back();
+										//operationPage = 2;
+									}
+									weightEdit->setText("");
+								}
+								else//没有路径加入
+								{
+									if (routeBuild!=-1)//有点击
+									{
+										sight_btns[routeBuild]->backNorm();
+										operationPage = 3;
+										routeBuild = -1;
+
+									}
+									else //没有加路径
+									{
+										SightList.pop_back();
+										sight_btns.pop_back();
+										operationPage = 2;
+									}
+
+								}
+								//if (twiceBack)
+								//{
+								//	operationPage = -1;
+								//	addSightEdit->setText("");
+								//	sight_btns[SightList.size() - 1]->backNorm();
+								//	twiceBack = false;
+								//	weightEdit->setText("");
+								//}
+							
+								//operationPage = 2;
+
+							}
+							else if (operationPage == 1 || operationPage == 0)
+							{
+								operationPage = -1;
+								addSightEdit->setText("");
+							}
+
+							
 						}
 						else if (state==1)
 						{
@@ -206,7 +294,7 @@ void CampusGuide::run()
 				break;
 
 			case CampusGuide::MODIFY:
-				saySorry2=Administrate();
+				saySorry2=Administrate(routeBuild,alreadyAdd);
 				break;
 
 			case CampusGuide::EXIT:
@@ -273,7 +361,6 @@ int CampusGuide::ShowMap()
 	if (flag != 2)
 	{
 		::loadimage(&m_bk, "assets/map1.JPEG", Window::width(), Window::height());
-		
 		flag = 2;
 	}
 	//::settextstyle(20, 0, "楷体", 0, 0, 100, 0, 0, 0);
@@ -463,6 +550,7 @@ void CampusGuide::showTableSet(Sights& s, int Page)
 	CafeToiletTable->setHeader(header);
 	//接下来就是insert一下，然后就可以show了
 	vector<string>nameV; vector<int>distV;
+	//updateMatGraph(2);
 	searchFacility(M, Page, s.id, nameV, distV);
 	string str;
 	for (int i = 0; i < nameV.size(); i++)
@@ -515,10 +603,10 @@ void CampusGuide::ShowAllRoute()
 			if (RWeight[i][j] != INF && RWeight[i][j] != 0)
 			{
 				//画虚线
-				int beginX = SightList[i].x + SBheight / 2;
-				int beginY= SightList[i].y + SBwidth / 2;
-				int endX = SightList[j].x + SBheight/ 2;
-				int endY = SightList[j].y + SBwidth / 2;
+				int beginX = SightList[i].x + SBwidth / 2;
+				int beginY= SightList[i].y + SBheight/ 2;
+				int endX = SightList[j].x + SBwidth/ 2;
+				int endY = SightList[j].y + SBheight/ 2;
 				line(beginX, beginY, endX, endY);
 			}
 
@@ -596,10 +684,10 @@ void CampusGuide::drawLine(int &start, int &end, vector<int>&distV)
 				if (i > 0) sight_btns[distV[i]]->isChosen();
 				setlinestyle(PS_SOLID, 6);
 				setlinecolor(RGB(50, 19, 176));
-				int beginX = SightList[distV[i]].x + SBheight / 2;
-				int beginY = SightList[distV[i]].y + SBwidth / 2;
-				int endX = SightList[distV[i+1]].x + SBheight / 2;
-				int endY = SightList[distV[i+1]].y + SBwidth / 2;
+				int beginX = SightList[distV[i]].x + SBwidth / 2;
+				int beginY = SightList[distV[i]].y + SBheight / 2;
+				int endX = SightList[distV[i+1]].x + SBwidth / 2;
+				int endY = SightList[distV[i+1]].y + SBheight / 2;
 				line(beginX, beginY, endX, endY);
 			}
 
@@ -621,8 +709,10 @@ void CampusGuide::drawLine(int &start, int &end, vector<int>&distV)
 
 
 
-bool CampusGuide::Administrate()
+bool CampusGuide::Administrate(int& routeBuild,bool& alreadyAdd)
 {
+
+
 	if (state == -1)state = 0;
 	reminder();
 	if (state == 0)
@@ -635,7 +725,7 @@ bool CampusGuide::Administrate()
 		LoginBtn->show();
 		LoginEdit->show();
 	}
-	else if (state==1)//进入增删的界面了
+	else if (state == 1)//进入增删的界面了
 	{
 		if (operationPage == -1)
 		{
@@ -646,37 +736,134 @@ bool CampusGuide::Administrate()
 		}
 		switch (operationPage)
 		{
-		case 0:
+		case 0://选择添加
+		{
+			string str1 = "请按<景点名 简介 推荐值(★) 有/无厕所 有/无餐厅>格式输入基本信息";
+			string str2 = "ps：中间空格隔开，且只有正确输入格式才能成功添加";
+			outtextxy((Window::width() - textwidth(str1.c_str()))/2, 120, str1.c_str());
+			outtextxy((Window::width() - textwidth(str2.c_str()))/2, 160, str2.c_str());
 			addSightBtn->show();
 			addSightEdit->show();
-			break;
-		case 1:
-			break;
-		case 2:
-			break;
-		case 3:
+			if (addSightEdit->isValid(5) && addSightBtn->isClicked())
+			{
+				operationPage = 2;
+			}
 			break;
 		}
 
+		case 1://删除功能
+
+			break;
+		case 2://选择位置
+		{
+			int x, y;//坐标
+			ShowMap();
+			string note("请单击选择新增景点的位置");
+			settextcolor(RGB(147, 94, 230));
+			//settextstyle(50, 25, "宋体");
+			settextstyle(30, 0, "微软雅黑", 0, 0, 880, 0, 0, 0);
+			outtextxy(690, 0, note.c_str());
+			auto& m_msg = Window::getMsg();
+			if (m_msg.message == WM_LBUTTONDOWN)//左键单击
+			{
+				x = m_msg.x-SBwidth/2; y = m_msg.y-SBheight/2;
+				addSights(addSightEdit->text(), x, y);
+				placeSB(SightList[SightList.size() - 1].name, SightList[SightList.size() - 1].x, SightList[SightList.size() - 1].y);
+				sight_btns[sight_btns.size() - 1]->isChosen();
+				operationPage = 3;
+			}
+
+			break;
+		}
+
+		case 3://加路
+		{
+			
+			if(routeBuild==-1)
+			routeBuild=ShowMap();
+
+			if (routeBuild != -1)
+			{
+				sight_btns[routeBuild]->isChosen();
+				string note2 = "请输入该路线距离：";
+				settextstyle(30, 0, "微软雅黑", 0, 0, 880, 0, 0, 0);
+				settextcolor(RGB(255, 120, 0));
+				outtextxy(510, 0, note2.c_str());
+				weightEdit->show();
+				confirmBtn->show();
+				setlinestyle(PS_DASHDOT, 3);
+				setlinecolor(RGB(50, 19, 176));
+				//中点坐标为（y+SBheight/2，x+SBwidth/2）
+				//画虚线
+				int a = SightList.size()-1;
+				int beginX = SightList[a].x + SBwidth / 2;
+				int beginY = SightList[a].y + SBheight / 2;
+				int endX = SightList[routeBuild].x + SBwidth / 2;
+				int endY = SightList[routeBuild].y + SBheight / 2;
+				line(beginX, beginY, endX, endY);
+				ShowMap();
+				if (weightEdit->text() != "" && confirmBtn->isClicked())//输入权值并添加
+				{
+					addRoutes(a, routeBuild, weightEdit->text());
+					routeAdded++;
+					weightEdit->setText("");
+					sight_btns[routeBuild]->backNorm();
+					routeBuild = -1;
+				}
+			}
+			else
+			{
+				if (routeAdded == 0&&!alreadyAdd)//没有路线添加成功
+				{
+
+					string note2 = "添加成功！单击其他景点添加路线";
+					settextstyle(30, 0, "微软雅黑", 0, 0, 880, 0, 0, 0);
+					settextcolor(RGB(147, 94, 230));
+					outtextxy(630, 0, note2.c_str());
+				}
+				else
+				{
+					alreadyAdd = true;
+					string note2 = "路线添加成功！可单击其他景点继续添加";
+					settextstyle(30, 0, "微软雅黑", 0, 0, 880, 0, 0, 0);
+					settextcolor(RGB(147, 94, 230));
+					outtextxy(550,0, note2.c_str());
+				}
+
+			}
+			break;
+
+		}
+
+
+		}
 	}
 
-	if (passWord == LoginEdit->text()&&LoginBtn->isClicked())
-	{
-		state = 1;	
-	}
-	else if (LoginBtn->isClicked()&&LoginEdit->text() != "" && passWord != LoginEdit->text())
-	{
-		string str1("序列码错误，请检查后重新输入!");
-		settextcolor(RGB(221, 255, 148));
-		settextstyle(50, 25, "Bulter");
-		//settextstyle(40, 0, "宋体", 0, 0, 800, 0, 0, 0);
-		outtextxy((Window::width() - textwidth(str1.c_str())) / 2,
-			(Window::height() - textheight(str1.c_str())) / 2, str1.c_str());
-		return true;//抱歉提示
-	}
+		if (passWord == LoginEdit->text() && LoginBtn->isClicked())
+		{
+			state = 1;
+		}
+		else if (LoginBtn->isClicked() && LoginEdit->text() != "" && passWord != LoginEdit->text())
+		{
+			string str1("序列码错误，请检查后重新输入!");
+			settextcolor(RGB(221, 255, 148));
+			settextstyle(50, 25, "Bulter");
+			//settextstyle(40, 0, "宋体", 0, 0, 800, 0, 0, 0);
+			outtextxy((Window::width() - textwidth(str1.c_str())) / 2,
+				(Window::height() - textheight(str1.c_str())) / 2, str1.c_str());
+			return true;//抱歉提示
+		}
 
 
-	return false;
+		return false;
+	
+}
+
+void CampusGuide::addRoutes(int src, int dst, string w)
+{
+	int weight = stoi(w);
+	RWeight[src][dst] = weight;
+	RWeight[dst][src] = weight;
 }
 
 
@@ -784,6 +971,17 @@ void CampusGuide::eventLoop()
 
 	addSightBtn->event();
 	addSightEdit->event();
+
+	weightEdit->event();
+	confirmBtn->event();
+}
+
+void CampusGuide::updateMatGraph(int cnt)
+{
+	M.edges = RWeight;
+	M.vexs = SightList;
+	M.n++;
+	M.e += cnt;
 }
 
 
@@ -791,7 +989,7 @@ void CampusGuide::placeSB(string s, int x, int y)//画景点按钮
 {
 	PushButton* p = new PushButton(s);
 	sight_btns.emplace_back(p);
-	p->setFixedSize(SBheight, SBwidth);
+	p->setFixedSize(SBwidth, SBheight);
 	p->move(x, y);
 }
 
@@ -836,12 +1034,17 @@ int CampusGuide::readRoutes()
 	return cnt;
 }
 
-void CampusGuide::addSights(string sightStr)
+void CampusGuide::addSights(string sightStr,int x,int y)
 {
 	Sights stmp;
-	istringstream strin;
-	strin >> stmp.name >> stmp.x >> stmp.y
-		>> stmp.info >> stmp.toilet >> stmp.canteen;
+	istringstream strin(sightStr);
+	strin >> stmp.name >> stmp.info >> stmp.star;
+	string toilet, canteen;
+	strin >> toilet >> canteen;
+	stmp.toilet = (toilet == "有") ? 1 : 0;
+	stmp.canteen = (canteen == "有") ? 1 : 0;
+	stmp.x = x;
+	stmp.y = y;
 	stmp.id = SightList.size();
 	SightList.push_back(stmp);
 }
