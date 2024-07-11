@@ -72,6 +72,9 @@ CampusGuide::CampusGuide()
 	CafeBtn.reset(new PushButton("附近有餐厅景点", 710,450));
 	CafeToiletTable.reset(new Table);
 
+	//查询路线部件初始化
+	ShortBtn.reset(new PushButton("显示最短距离路线"));
+	ShortBtn->move(755, 3);
 
 	//管理员入口初始化
 	LoginBtn.reset(new PushButton("进入", 700, 170));
@@ -92,10 +95,9 @@ CampusGuide::CampusGuide()
 		subMenu_btns[i]->move(bx, by);
 	}
 
-
-	//查询路线部件初始化
-	ShortBtn.reset(new PushButton("显示最短距离路线"));
-	ShortBtn->move(755, 3);
+	addSightEdit.reset(new LineEdit(100, 200, 570, 45));
+	addSightBtn.reset(new PushButton("添加", 700, 200));
+	addSightEdit->setTitle("请按照格式输入！");
 
 }
 
@@ -155,6 +157,10 @@ void CampusGuide::run()
 						{
 							signal = -1;
 						}//信息查询功能子界面
+						else if (operationPage!=-1)
+						{
+							operationPage = -1;
+						}
 						else if (state==1)
 						{
 							state = 0;
@@ -197,13 +203,12 @@ void CampusGuide::run()
 			case CampusGuide::FIND:
 				drawLine(start,end,distV);
 				ShowMap();
-
-				
-
 				break;
+
 			case CampusGuide::MODIFY:
 				saySorry2=Administrate();
 				break;
+
 			case CampusGuide::EXIT:
 				//saveFile("assets/flights");
 				//saveFile02("assets/customers");
@@ -630,10 +635,29 @@ bool CampusGuide::Administrate()
 		LoginBtn->show();
 		LoginEdit->show();
 	}
-	else if (state==1)
+	else if (state==1)//进入增删的界面了
 	{
-		for (int i = 0; i < subMenu_btns.size(); i++)
-			subMenu_btns[i]->show();
+		if (operationPage == -1)
+		{
+			for (int i = 0; i < subMenu_btns.size(); i++)
+				subMenu_btns[i]->show();
+			for (int i = 0; i < subMenu_btns.size(); i++)
+				if (subMenu_btns[i]->isClicked()) operationPage = i;
+		}
+		switch (operationPage)
+		{
+		case 0:
+			addSightBtn->show();
+			addSightEdit->show();
+			break;
+		case 1:
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		}
+
 	}
 
 	if (passWord == LoginEdit->text()&&LoginBtn->isClicked())
@@ -654,6 +678,8 @@ bool CampusGuide::Administrate()
 
 	return false;
 }
+
+
 
 
 void CampusGuide::ShowPic()
@@ -754,8 +780,10 @@ void CampusGuide::eventLoop()
 	//if (CafeToiletTable != NULL)
 	CafeToiletTable->event();
 
-
 	ShortBtn->event();
+
+	addSightBtn->event();
+	addSightEdit->event();
 }
 
 
