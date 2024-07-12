@@ -391,12 +391,28 @@ void CampusGuide::ShowInfo(int &signal)
 
 			flag = 3;
 		}
-		string file = "assets/pics/Pic";
-		file += to_string(signal) + ".JPG";
+		string file = "assets/pics/";
+		file += SightList[signal].name + ".JPG";
+
+
 		if (flag1 != signal)
 		{
-			::loadimage(&sightPic, file.c_str(), 370, 270);
-			flag1 = signal;
+			ifstream f(file.c_str());
+			if (!f.good())
+			{
+				if (flag1 != 999)
+				{
+					::loadimage(&sightPic, "assets/pics/default.jpg", 370, 270);
+					flag1 = 999;
+				}
+
+			}
+			else
+			{
+				::loadimage(&sightPic, file.c_str(), 370, 270);
+				flag1 = signal;
+			}
+
 		}
 		putimage(380, 570, &LOGO);//放logo
 
@@ -887,39 +903,39 @@ bool CampusGuide::searchNshow()
 	if(SightSearchBtn->isClicked()&&!str.empty())
 	if (str == "樱花城堡"||str=="樱顶")
 	{
-		::loadimage(&m_bk, "assets/pics/Pic8.JPG", Window::width(), Window::height());
+		::loadimage(&m_bk, "assets/pics/樱花城堡.JPG", Window::width(), Window::height());
 	}
 	else if(str == "樱花大道")
 	{
-		::loadimage(&m_bk, "assets/pics/Pic9.JPG", Window::width(), Window::height());
+		::loadimage(&m_bk, "assets/pics/樱花大道.JPG", Window::width(), Window::height());
 	}
 	else if (str == "总图书馆"||str=="图书馆")
 	{
-		::loadimage(&m_bk, "assets/pics/Pic6.JPG", Window::width(), Window::height());
+		::loadimage(&m_bk, "assets/pics/总图书馆.JPG", Window::width(), Window::height());
 	}
 	else if (str == "计算机学院")
 	{
-		::loadimage(&m_bk, "assets/pics/Pic1.JPG", Window::width(), Window::height());
+		::loadimage(&m_bk, "assets/pics/计算机学院.JPG", Window::width(), Window::height());
 	}
 	else if (str == "万林博物馆")
 	{
-		::loadimage(&m_bk, "assets/pics/Pic2.JPG", Window::width(), Window::height());
+		::loadimage(&m_bk, "assets/pics/万林博物馆.JPG", Window::width(), Window::height());
 	}
 	else if (str == "武汉大学牌坊")
 	{
-		::loadimage(&m_bk, "assets/pics/Pic3.JPG", Window::width(), Window::height());
+		::loadimage(&m_bk, "assets/pics/武汉大学牌坊.JPG", Window::width(), Window::height());
 	}
 	else if (str == "九一二操场"||str=="912操场")
 	{
-		::loadimage(&m_bk, "assets/pics/Pic12.JPG", Window::width(), Window::height());
+		::loadimage(&m_bk, "assets/pics/九一二操场.JPG", Window::width(), Window::height());
 	}
 	else if (str == "东湖")
 	{
-		::loadimage(&m_bk, "assets/pics/Pic17.JPG", Window::width(), Window::height());
+		::loadimage(&m_bk, "assets/pics/东湖.JPG", Window::width(), Window::height());
 	}
 	else if (str == "卓尔体育馆")
 	{
-		::loadimage(&m_bk, "assets/pics/Pic2.JPG", Window::width(), Window::height());
+		::loadimage(&m_bk, "assets/pics/卓尔体育馆.JPG", Window::width(), Window::height());
 	}
 	else if(str!="")
 	{
