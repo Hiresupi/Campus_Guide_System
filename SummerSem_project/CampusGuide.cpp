@@ -192,7 +192,7 @@ void CampusGuide::run()
 										operationPage = 3;
 										if (routeAdded != 0)
 										{
-											updateMatGraph(routeAdded);//更新route
+											updateMatGraph(routeAdded, 1);//更新route
 											routeAdded = 0;
 										}
 										//sight_btns[SightList.size() - 1]->backNorm();
@@ -201,7 +201,7 @@ void CampusGuide::run()
 									{
 										if (routeAdded != 0)
 										{
-											updateMatGraph(routeAdded);//更新route
+											updateMatGraph(routeAdded, 1);//更新route
 											routeAdded = 0;
 										}
 										operationPage = 0;
@@ -342,6 +342,7 @@ void CampusGuide::run()
 				//{
 				//	fout << sight_btns[i]->m_text <<"	" << sight_btns[i]->x() << "	" << sight_btns[i]->y() << "	" << i << endl;
 				//}
+				saveToFile();
 				Window::beginDraw();
 				settextcolor(RGB(255, 120, 0));
 				settextstyle(80, 40, "Bulter");
@@ -603,7 +604,6 @@ void CampusGuide::showTableSet(Sights& s, int Page)
 	CafeToiletTable->setHeader(header);
 	//接下来就是insert一下，然后就可以show了
 	vector<string>nameV; vector<int>distV;
-	//updateMatGraph(2);
 	searchFacility(M, Page, s.id, nameV, distV);
 	string str;
 	for (int i = 0; i < nameV.size(); i++)
@@ -731,7 +731,7 @@ void CampusGuide::drawLine(int &start, int &end, vector<int>&distV)
 			int dist = FindShort(M, start, end, distV);
 			string str = "全程共" + to_string(dist) + "m";
 			settextcolor(RGB(147, 94, 230));
-			outtextxy(820, 610, str.c_str());
+			outtextxy(810, 610, str.c_str());
 			for (int i = 0; i < distV.size()-1; i++)
 			{
 				if (i > 0) sight_btns[distV[i]]->isChosen();
@@ -835,6 +835,7 @@ bool CampusGuide::Administrate(int& routeBuild,bool& alreadyAdd,int &sightDelete
 				if (deleteBtn->isClicked())
 				{
 					//调用delete的函数
+					deteleSights(sightDeleted);
 					operationPage = 1;
 					sightDeleted = -1;
 					alreadyDelete = true;
@@ -1065,12 +1066,12 @@ void CampusGuide::eventLoop()
 	deleteBtn->event();
 }
 
-void CampusGuide::updateMatGraph(int cnt)
+void CampusGuide::updateMatGraph(int eCnt, int nCnt)
 {
 	M.edges = RWeight;
 	M.vexs = SightList;
-	M.n++;
-	M.e += cnt;
+	M.n += nCnt;
+	M.e += eCnt;
 }
 
 
@@ -1138,6 +1139,44 @@ void CampusGuide::addSights(string sightStr,int x,int y)
 	SightList.push_back(stmp);
 }
 
+void CampusGuide::deteleSights(int id)
+{
+	int eCnt = 0;
+	for (int i = id; i < SightList.size() - 1; i++)
+	{
+		SightList[i] = SightList[i + 1];
+		SightList[i].id--;
+	}
+	SightList.pop_back();
+	sight_btns.clear();
+	for (int i = 0; i < SightList.size(); i++)
+	{
+		placeSB(SightList[i].name, SightList[i].x, SightList[i].y);
+	}
+	for (int j = 0; j < SightList.size(); j++)
+	{
+		if (RWeight[id][j] != INF && RWeight[id][j] != 0)
+		{
+			eCnt--;
+		}
+	}
+
+	for (int i = id; i < SightList.size(); i++)
+	{
+		RWeight[i] = RWeight[i + 1];
+	}
+	RWeight[SightList.size()] = vector<int>(MAXV, INF);
+	for (int i = 0; i < SightList.size(); i++)
+	{
+		for (int j = id; j < SightList.size(); j++)
+		{
+			RWeight[i][j] = RWeight[i][j + 1];
+		}
+		RWeight[i][SightList.size()] = INF;
+	}
+	updateMatGraph(eCnt, -1);
+}
+
 void CampusGuide::saveToFile()
 {
 	ofstream fout("assets/sights.txt");
@@ -1145,6 +1184,7 @@ void CampusGuide::saveToFile()
 	{
 		fout << sight << endl;
 	}
+	fout.close();
 	fout.open("assets/routes.txt");
 	for (int i = 0; i < RWeight.size(); i++)
 	{

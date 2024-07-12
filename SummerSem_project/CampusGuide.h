@@ -80,18 +80,17 @@ public:
 
 	void eventLoop();
 
-	void updateMatGraph(int cnt);
+	void updateMatGraph(int eCnt, int nCnt);
 
 	void reminder();
-
-
-
 
 	void readSights();
 
 	int readRoutes();
 
 	void addSights(string sightStr,int x,int y);
+
+	void deteleSights(int id);
 
 	void saveToFile();
 
@@ -137,7 +136,7 @@ private:
 	//管理员
 	unique_ptr<PushButton>LoginBtn;//记得去初始化一下
 	unique_ptr <LineEdit> LoginEdit;
-	string passWord = "boys12138";
+	string passWord = "katyperry143";
 	int state=-1;
 	vector<unique_ptr<PushButton>>subMenu_btns;
 	int operationPage = -1;//标识不同操作的页面
