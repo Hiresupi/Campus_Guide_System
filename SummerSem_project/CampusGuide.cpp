@@ -102,6 +102,8 @@ CampusGuide::CampusGuide()
 	weightEdit->setTitle("请输入距离（默认单位：m）");
 	confirmBtn.reset(new PushButton("确认",855,3,100,30));
 
+	deleteBtn.reset(new PushButton("确认删除", 805, 3, 150, 40));
+
 }
 
 
@@ -122,7 +124,9 @@ void CampusGuide::run()
 		int start=-1, end=-1;//接收查路线时的起始和结尾
 
 		int routeBuild = -1;//管理员加路径页面转化标识
-		bool alreadyAdd = false;//已经加了一条路线了
+		bool alreadyAdd = false;//若为真 已经加了一条路线了
+		int sightDeleted = -1;//删除的点的id
+		bool alreadyDelete = false;//标记是否有点被删
 
 		vector<int>distV;//存放最短路径id
 
@@ -241,10 +245,43 @@ void CampusGuide::run()
 								//operationPage = 2;
 
 							}
-							else if (operationPage == 1 || operationPage == 0)
+							else if (operationPage == 0)
 							{
 								operationPage = -1;
 								addSightEdit->setText("");
+							}
+							else if (operationPage == 1)
+							{
+								if (!alreadyDelete)//没有被删
+								{
+									if (sightDeleted != -1)//选中了
+									{
+										sight_btns[sightDeleted]->backNorm();
+										sightDeleted = -1;
+									}
+									else //没有选中
+									{
+										operationPage = -1;
+										::loadimage(&m_bk, "assets/WHU.JPEG", Window::width(), Window::height());//背景切换
+										flag = 1;
+									}
+								}
+								else //有被删除的
+								{
+									if (sightDeleted != -1)//选中了
+									{
+										sight_btns[sightDeleted]->backNorm();
+										sightDeleted = -1;
+									}
+									else
+									{
+										operationPage = -1;
+										sightDeleted = -1;
+										alreadyDelete = false;
+										::loadimage(&m_bk, "assets/WHU.JPEG", Window::width(), Window::height());//背景切换
+										flag = 1;
+									}
+								}
 							}
 
 							
@@ -294,7 +331,7 @@ void CampusGuide::run()
 				break;
 
 			case CampusGuide::MODIFY:
-				saySorry2=Administrate(routeBuild,alreadyAdd);
+				saySorry2=Administrate(routeBuild,alreadyAdd,sightDeleted,alreadyDelete);
 				break;
 
 			case CampusGuide::EXIT:
@@ -725,7 +762,7 @@ void CampusGuide::drawLine(int &start, int &end, vector<int>&distV)
 
 
 
-bool CampusGuide::Administrate(int& routeBuild,bool& alreadyAdd)
+bool CampusGuide::Administrate(int& routeBuild,bool& alreadyAdd,int &sightDeleted,bool&alreadyDelete)
 {
 
 
@@ -768,8 +805,43 @@ bool CampusGuide::Administrate(int& routeBuild,bool& alreadyAdd)
 		}
 
 		case 1://删除功能
-
+		{
+			ShowAllRoute();
+			if (sightDeleted == -1)
+			{
+				if (alreadyDelete)
+				{
+					string note("点击其他景点可继续删除");
+					settextcolor(RGB(147, 94, 230));
+					//settextstyle(50, 25, "宋体");
+					settextstyle(30, 0, "微软雅黑", 0, 0, 880, 0, 0, 0);
+					outtextxy(710, 0, note.c_str());
+				}
+				else
+				{
+					string note("请单击选择要删除的景点");
+					settextcolor(RGB(147, 94, 230));
+					//settextstyle(50, 25, "宋体");
+					settextstyle(30, 0, "微软雅黑", 0, 0, 880, 0, 0, 0);
+					outtextxy(710, 0, note.c_str());
+				}
+				sightDeleted = ShowMap();
+			}
+			else
+			{
+				sight_btns[sightDeleted]->isChosen();
+				ShowMap();
+				deleteBtn->show();
+				if (deleteBtn->isClicked())
+				{
+					//调用delete的函数
+					operationPage = 1;
+					sightDeleted = -1;
+					alreadyDelete = true;
+				}
+			}
 			break;
+		}
 		case 2://选择位置
 		{
 			int x, y;//坐标
@@ -990,6 +1062,7 @@ void CampusGuide::eventLoop()
 
 	weightEdit->event();
 	confirmBtn->event();
+	deleteBtn->event();
 }
 
 void CampusGuide::updateMatGraph(int cnt)

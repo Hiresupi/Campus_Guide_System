@@ -70,7 +70,7 @@ public:
 	void drawLine(int &start, int &end, vector<int>& distV);
 
 
-	bool Administrate(int & routeBuild,bool & alreadyAdd);
+	bool Administrate(int & routeBuild,bool & alreadyAdd,int &sightDeleted,bool &alreadyDelete);
 
 	void addRoutes(int src, int dst, string w);
 
@@ -147,7 +147,7 @@ private:
 	unique_ptr <LineEdit> weightEdit;
 	unique_ptr<PushButton>confirmBtn;
 
-	
+	unique_ptr<PushButton>deleteBtn;
 
 
 };

@@ -213,7 +213,6 @@ void Table::updatePage()
 		m_cols = m_datas.front().find("\t") + 1;
 	
 	}
-	//trial 17ÐÐÊý¾Ý
 	if (m_rows >= m_datas.size())
 	{
 		m_maxPage = 0;
@@ -222,6 +221,7 @@ void Table::updatePage()
 	else
 	{
 		m_maxPage = m_datas.size() / m_rows;
+		if (m_datas.size() % m_rows == 0) m_maxPage;
 		m_extraData = m_datas.size() % m_rows;
 	}
 }
