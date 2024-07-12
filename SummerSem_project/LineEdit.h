@@ -13,6 +13,8 @@ public:
 	inline void clear() { m_text.clear(); }
 	inline void setText(const string& text) { m_text = text; }
 
+	bool isValid(int eleNum);
+
 	bool textChanged();
 private:
 	string m_prevText;

@@ -69,14 +69,17 @@ public:
 	void drawLine(int &start, int &end, vector<int>& distV);
 
 
-	bool Administrate();
+	bool Administrate(int & routeBuild,bool & alreadyAdd);
+
+	void addRoutes(int src, int dst, string w);
+
 
 
 	void drawbackground();
 
 	void eventLoop();
 
-
+	void updateMatGraph(int cnt);
 
 	void reminder();
 
@@ -87,7 +90,7 @@ public:
 
 	int readRoutes();
 
-	void addSights(string sightStr);
+	void addSights(string sightStr,int x,int y);
 
 	void saveToFile();
 
@@ -105,7 +108,7 @@ private:
 	//3是分支二的背景
 	vector<unique_ptr<PushButton>>menu_btns;
 	vector<unique_ptr<PushButton>>sight_btns;
-	int SBheight = 104; int SBwidth = 23;
+	int SBheight = 23; int SBwidth = 104;
 
 	//景点概览
 	unique_ptr<PushButton>SightSearchBtn;
@@ -139,6 +142,9 @@ private:
 	int operationPage = -1;//标识不同操作的页面
 	unique_ptr <LineEdit> addSightEdit;
 	unique_ptr<PushButton>addSightBtn;
+	int routeAdded = 0;//标记有没有加路径
+	unique_ptr <LineEdit> weightEdit;
+	unique_ptr<PushButton>confirmBtn;
 
 	
 
