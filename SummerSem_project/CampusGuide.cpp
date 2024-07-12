@@ -106,9 +106,6 @@ CampusGuide::CampusGuide()
 
 }
 
-
-
-
 void CampusGuide::run()
 {
 
@@ -518,7 +515,6 @@ void CampusGuide::Floyd(MatGraph& g, vector<vector<int>>& A, vector<vector<int>>
 	}
 }
 
-
 // 显示景点信息
 void CampusGuide::showSightTable(Sights& s)
 {
@@ -759,9 +755,6 @@ void CampusGuide::drawLine(int &start, int &end, vector<int>&distV)
 
 }
 
-
-
-
 bool CampusGuide::Administrate(int& routeBuild,bool& alreadyAdd,int &sightDeleted,bool&alreadyDelete)
 {
 
@@ -955,9 +948,6 @@ void CampusGuide::addRoutes(int src, int dst, string w)
 	RWeight[dst][src] = weight;
 }
 
-
-
-
 void CampusGuide::ShowPic()
 {
 	reminder();
@@ -973,43 +963,28 @@ bool CampusGuide::searchNshow()
 	SightSearchBtn->show();
 	SightEdit->show();
 	string str = SightEdit->text();
+	string file = "assets/pics/" + str + ".JPG";
+	ifstream f(file.c_str());
 	if(SightSearchBtn->isClicked()&&!str.empty())
 	if (str == "樱花城堡"||str=="樱顶")
 	{
 		::loadimage(&m_bk, "assets/pics/樱花城堡.JPG", Window::width(), Window::height());
 	}
-	else if(str == "樱花大道")
-	{
-		::loadimage(&m_bk, "assets/pics/樱花大道.JPG", Window::width(), Window::height());
-	}
+
 	else if (str == "总图书馆"||str=="图书馆")
 	{
 		::loadimage(&m_bk, "assets/pics/总图书馆.JPG", Window::width(), Window::height());
 	}
-	else if (str == "计算机学院")
-	{
-		::loadimage(&m_bk, "assets/pics/计算机学院.JPG", Window::width(), Window::height());
-	}
-	else if (str == "万林博物馆")
-	{
-		::loadimage(&m_bk, "assets/pics/万林博物馆.JPG", Window::width(), Window::height());
-	}
-	else if (str == "武汉大学牌坊")
-	{
-		::loadimage(&m_bk, "assets/pics/武汉大学牌坊.JPG", Window::width(), Window::height());
-	}
+
 	else if (str == "九一二操场"||str=="912操场")
 	{
 		::loadimage(&m_bk, "assets/pics/九一二操场.JPG", Window::width(), Window::height());
 	}
-	else if (str == "东湖")
+	else if (f.good())
 	{
-		::loadimage(&m_bk, "assets/pics/东湖.JPG", Window::width(), Window::height());
+		::loadimage(&m_bk, file.c_str(), Window::width(), Window::height());
 	}
-	else if (str == "卓尔体育馆")
-	{
-		::loadimage(&m_bk, "assets/pics/卓尔体育馆.JPG", Window::width(), Window::height());
-	}
+	
 	else if(str!="")
 	{
 		string str1("抱歉，请检查输入或当前暂无该景点信息!");
@@ -1027,7 +1002,6 @@ void CampusGuide::drawbackground()
 {
 	::putimage(0, 0, &m_bk);
 }
-
 
 void CampusGuide::eventLoop()
 {
@@ -1073,7 +1047,6 @@ void CampusGuide::updateMatGraph(int eCnt, int nCnt)
 	M.n += nCnt;
 	M.e += eCnt;
 }
-
 
 void CampusGuide::placeSB(string s, int x, int y)//画景点按钮
 {

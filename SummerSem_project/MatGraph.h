@@ -4,7 +4,7 @@
 #include <vector>
 #include <iomanip>
 
-const int MAXV = 30;
+const int MAXV = 100;
 const int INF = 0x3f3f3f3f;
 
 class MatGraph
