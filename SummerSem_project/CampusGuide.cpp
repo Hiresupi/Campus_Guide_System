@@ -1,6 +1,5 @@
 #include"CampusGuide.h"
 
-
 CampusGuide::CampusGuide()
 {
 	readSights();
@@ -20,9 +19,6 @@ CampusGuide::CampusGuide()
 	menu_btns.emplace_back(new PushButton("查询可行路线"));
 	menu_btns.emplace_back(new PushButton("管理员入口"));
 	menu_btns.emplace_back(new PushButton("退出"));
-	//menu_btns.emplace_back(new PushButton("退票"));
-	//menu_btns.emplace_back(new PushButton("订票信息修改"));
-	//menu_btns.emplace_back(new PushButton("退出系统"));
 	for (int i = 0; i < menu_btns.size(); i++)
 	{
 		menu_btns[i]->setFixedSize(250, 45);
@@ -33,31 +29,10 @@ CampusGuide::CampusGuide()
 	}
 
 	//景点按钮初始化
-	//placeSB("离校打车点1", 20, 180);//0   画线条用的标记中点坐标为（x+SBheight/2，y+SBwidth/2）
-	//placeSB("计算机学院", 68, 275);//1
-	//placeSB("卓尔体育馆", 88, 335);//2
-	//placeSB("武汉大学牌坊", 90, 560);//3
-	//placeSB("武大附小", 165, 60);//4
-	//placeSB("桂园操场",230 , 300);//5
-	//placeSB("总图书馆", 265, 425);//6
-	//placeSB("万林博物馆", 330, 370);//7
-	//placeSB("樱花城堡", 320, 175);//8
-	//placeSB("樱花大道", 410, 240);//9
-	//placeSB("水生研究所", 370,80);//10
-	//placeSB("居民区", 390,595);//11
-	//placeSB("九一二操场", 460, 320);//12
-	//placeSB("工学部", 550, 60);//13
-	//placeSB("珞珈山", 560, 470);//14
-	//placeSB("梅园", 580, 590);//15
-	//placeSB("法学院", 680, 310);//16
-	//placeSB("东湖", 830, 80);//17
-	//placeSB("枫园", 800, 340);//18
-	//placeSB("离校打车点2", 850, 540);//19 共20个sights
 	for (int i = 0; i < SightList.size(); i++)
 	{
 		placeSB(SightList[i].name, SightList[i].x, SightList[i].y);
 	}
-
 
 	//查询部件初始化
 	SightSearchBtn.reset(new PushButton("搜索", 700, 30));
@@ -66,8 +41,6 @@ CampusGuide::CampusGuide()
 	SightEdit->setPrompt("武汉大学牌坊");
 
 	//景点信息查看初始化
-
-
 	ToiletBtn.reset(new PushButton("附近有厕所景点", 435, 450));
 	CafeBtn.reset(new PushButton("附近有餐厅景点", 710,450));
 	CafeToiletTable.reset(new Table);
@@ -80,7 +53,6 @@ CampusGuide::CampusGuide()
 	LoginBtn.reset(new PushButton("进入", 700, 170));
 	LoginEdit.reset(new LineEdit(100, 170, 570, 45));
 	LoginEdit->setTitle("请输入密钥");
-
 	subMenu_btns.emplace_back(new PushButton("增加新景点及路线"));
 	subMenu_btns.emplace_back(new PushButton("删除景点"));
 
@@ -126,8 +98,6 @@ void CampusGuide::run()
 		bool alreadyDelete = false;//标记是否有点被删
 
 		vector<int>distV;//存放最短路径id
-
-
 
 		while (true)
 		{
@@ -482,6 +452,7 @@ void CampusGuide::ShowInfo(int &signal)
 	}
 }
 
+// Floyd 算法
 void CampusGuide::Floyd(MatGraph& g, vector<vector<int>>& A, vector<vector<int>>& path)
 {
 	for (int i = 0; i < g.n; i++)
@@ -546,6 +517,7 @@ void CampusGuide::showSightTable(Sights& s)
 
 }
 
+// 搜索附近设施
 void CampusGuide::searchFacility(MatGraph& g, int page, int id, vector<string>& svec, vector<int>& ivec)
 {
 	vector<vector<int>> A(MAXV, vector<int>(MAXV, INF));
@@ -626,7 +598,7 @@ int CampusGuide::FindShort(MatGraph& g, int src, int dst, vector<int>& distVec)
 // 寻找i到j的最短路径
 vector<int> CampusGuide::Dispath(vector<vector<int>> A, vector<vector<int>> path, int n, int i, int j)
 {
-	if (A[i][j] != INF && i != j)
+	if (A[i][j] != INF && i != j)   // 寻找前一个结点并加入vector
 	{
 		vector <int> apath;
 		apath.push_back(j);
@@ -637,7 +609,7 @@ vector<int> CampusGuide::Dispath(vector<vector<int>> A, vector<vector<int>> path
 			pre = path[i][pre];
 		}
 		apath.push_back(i);
-		reverse(apath.begin(), apath.end());
+		reverse(apath.begin(), apath.end());   // 逆置路径数组
 		return apath;
 	}
 }
@@ -663,26 +635,6 @@ void CampusGuide::ShowAllRoute()
 
 }
 
-//int CampusGuide::NavigateStartHint()
-//{
-//	settextcolor(RGB(147, 94, 230));
-//	settextstyle(40, 0, "微软雅黑", 0, 0, 880, 0, 0, 0);
-//	outtextxy(720, 0, "请选择出发景点");
-//	for (int i = 0; i < sight_btns.size(); i++)
-//		if (sight_btns[i]->isClicked()) return i;
-//	return -1;
-//}
-//
-//int CampusGuide::NavigateEndHint()
-//{
-//	settextcolor(RGB(147, 94, 230));
-//	settextstyle(40, 0, "微软雅黑", 0, 0, 880, 0, 0, 0);
-//	outtextxy(720, 0, "请选择目标景点");
-//	for (int i = 0; i < sight_btns.size(); i++)
-//		if (sight_btns[i]->isClicked()) return i;
-//
-//	return -1;
-//}
 
 int CampusGuide::NavigateHint(string s)
 {
@@ -1169,6 +1121,7 @@ void CampusGuide::saveToFile()
 			}
 		}
 	}
+	fout.close();
 }
 
 

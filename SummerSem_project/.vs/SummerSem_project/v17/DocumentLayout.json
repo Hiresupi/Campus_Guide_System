@@ -1,0 +1,207 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\S\\Campus_Guide_System\\SummerSem_project\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{6B7DCE13-0606-4BC8-859A-73669D56E851}|SummerSem_project.vcxproj|D:\\S\\Campus_Guide_System\\SummerSem_project\\CampusGuideSystem.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{6B7DCE13-0606-4BC8-859A-73669D56E851}|SummerSem_project.vcxproj|solutionrelative:CampusGuideSystem.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6B7DCE13-0606-4BC8-859A-73669D56E851}|SummerSem_project.vcxproj|D:\\S\\Campus_Guide_System\\SummerSem_project\\Sights.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{6B7DCE13-0606-4BC8-859A-73669D56E851}|SummerSem_project.vcxproj|solutionrelative:Sights.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6B7DCE13-0606-4BC8-859A-73669D56E851}|SummerSem_project.vcxproj|D:\\S\\Campus_Guide_System\\SummerSem_project\\CampusGuide.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{6B7DCE13-0606-4BC8-859A-73669D56E851}|SummerSem_project.vcxproj|solutionrelative:CampusGuide.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6B7DCE13-0606-4BC8-859A-73669D56E851}|SummerSem_project.vcxproj|D:\\S\\Campus_Guide_System\\SummerSem_project\\LineEdit.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{6B7DCE13-0606-4BC8-859A-73669D56E851}|SummerSem_project.vcxproj|solutionrelative:LineEdit.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6B7DCE13-0606-4BC8-859A-73669D56E851}|SummerSem_project.vcxproj|D:\\S\\Campus_Guide_System\\SummerSem_project\\Table.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{6B7DCE13-0606-4BC8-859A-73669D56E851}|SummerSem_project.vcxproj|solutionrelative:Table.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6B7DCE13-0606-4BC8-859A-73669D56E851}|SummerSem_project.vcxproj|D:\\S\\Campus_Guide_System\\SummerSem_project\\Window.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{6B7DCE13-0606-4BC8-859A-73669D56E851}|SummerSem_project.vcxproj|solutionrelative:Window.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6B7DCE13-0606-4BC8-859A-73669D56E851}|SummerSem_project.vcxproj|D:\\S\\Campus_Guide_System\\SummerSem_project\\MatGraph.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{6B7DCE13-0606-4BC8-859A-73669D56E851}|SummerSem_project.vcxproj|solutionrelative:MatGraph.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6B7DCE13-0606-4BC8-859A-73669D56E851}|SummerSem_project.vcxproj|D:\\S\\Campus_Guide_System\\SummerSem_project\\Sights.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{6B7DCE13-0606-4BC8-859A-73669D56E851}|SummerSem_project.vcxproj|solutionrelative:Sights.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6B7DCE13-0606-4BC8-859A-73669D56E851}|SummerSem_project.vcxproj|D:\\S\\Campus_Guide_System\\SummerSem_project\\CampusGuide.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{6B7DCE13-0606-4BC8-859A-73669D56E851}|SummerSem_project.vcxproj|solutionrelative:CampusGuide.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6B7DCE13-0606-4BC8-859A-73669D56E851}|SummerSem_project.vcxproj|D:\\S\\Campus_Guide_System\\SummerSem_project\\MatGraph.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{6B7DCE13-0606-4BC8-859A-73669D56E851}|SummerSem_project.vcxproj|solutionrelative:MatGraph.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6B7DCE13-0606-4BC8-859A-73669D56E851}|SummerSem_project.vcxproj|D:\\S\\Campus_Guide_System\\SummerSem_project\\PushButton.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{6B7DCE13-0606-4BC8-859A-73669D56E851}|SummerSem_project.vcxproj|solutionrelative:PushButton.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 7,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Sights.cpp",
+              "DocumentMoniker": "D:\\S\\Campus_Guide_System\\SummerSem_project\\Sights.cpp",
+              "RelativeDocumentMoniker": "Sights.cpp",
+              "ToolTip": "D:\\S\\Campus_Guide_System\\SummerSem_project\\Sights.cpp",
+              "RelativeToolTip": "Sights.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABgAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-07-17T12:50:01.847Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "PushButton.h",
+              "DocumentMoniker": "D:\\S\\Campus_Guide_System\\SummerSem_project\\PushButton.h",
+              "RelativeDocumentMoniker": "PushButton.h",
+              "ToolTip": "D:\\S\\Campus_Guide_System\\SummerSem_project\\PushButton.h",
+              "RelativeToolTip": "PushButton.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-07-17T12:27:49.124Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "MatGraph.h",
+              "DocumentMoniker": "D:\\S\\Campus_Guide_System\\SummerSem_project\\MatGraph.h",
+              "RelativeDocumentMoniker": "MatGraph.h",
+              "ToolTip": "D:\\S\\Campus_Guide_System\\SummerSem_project\\MatGraph.h",
+              "RelativeToolTip": "MatGraph.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-07-17T12:27:33.293Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Window.h",
+              "DocumentMoniker": "D:\\S\\Campus_Guide_System\\SummerSem_project\\Window.h",
+              "RelativeDocumentMoniker": "Window.h",
+              "ToolTip": "D:\\S\\Campus_Guide_System\\SummerSem_project\\Window.h",
+              "RelativeToolTip": "Window.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-07-17T12:26:02.66Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Table.h",
+              "DocumentMoniker": "D:\\S\\Campus_Guide_System\\SummerSem_project\\Table.h",
+              "RelativeDocumentMoniker": "Table.h",
+              "ToolTip": "D:\\S\\Campus_Guide_System\\SummerSem_project\\Table.h",
+              "RelativeToolTip": "Table.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-07-17T12:25:44.523Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "LineEdit.h",
+              "DocumentMoniker": "D:\\S\\Campus_Guide_System\\SummerSem_project\\LineEdit.h",
+              "RelativeDocumentMoniker": "LineEdit.h",
+              "ToolTip": "D:\\S\\Campus_Guide_System\\SummerSem_project\\LineEdit.h",
+              "RelativeToolTip": "LineEdit.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-07-17T12:24:51.12Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Sights.h",
+              "DocumentMoniker": "D:\\S\\Campus_Guide_System\\SummerSem_project\\Sights.h",
+              "RelativeDocumentMoniker": "Sights.h",
+              "ToolTip": "D:\\S\\Campus_Guide_System\\SummerSem_project\\Sights.h",
+              "RelativeToolTip": "Sights.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-07-17T12:22:46.997Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CampusGuideSystem.cpp",
+              "DocumentMoniker": "D:\\S\\Campus_Guide_System\\SummerSem_project\\CampusGuideSystem.cpp",
+              "RelativeDocumentMoniker": "CampusGuideSystem.cpp",
+              "ToolTip": "D:\\S\\Campus_Guide_System\\SummerSem_project\\CampusGuideSystem.cpp",
+              "RelativeToolTip": "CampusGuideSystem.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-07-15T07:22:35.769Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "MatGraph.cpp",
+              "DocumentMoniker": "D:\\S\\Campus_Guide_System\\SummerSem_project\\MatGraph.cpp",
+              "RelativeDocumentMoniker": "MatGraph.cpp",
+              "ToolTip": "D:\\S\\Campus_Guide_System\\SummerSem_project\\MatGraph.cpp",
+              "RelativeToolTip": "MatGraph.cpp",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-07-15T07:22:23.179Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CampusGuide.cpp",
+              "DocumentMoniker": "D:\\S\\Campus_Guide_System\\SummerSem_project\\CampusGuide.cpp",
+              "RelativeDocumentMoniker": "CampusGuide.cpp",
+              "ToolTip": "D:\\S\\Campus_Guide_System\\SummerSem_project\\CampusGuide.cpp",
+              "RelativeToolTip": "CampusGuide.cpp",
+              "ViewState": "AQIAADoEAAAAAAAAAAAAAGcEAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-07-15T07:11:45.03Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "CampusGuide.h",
+              "DocumentMoniker": "D:\\S\\Campus_Guide_System\\SummerSem_project\\CampusGuide.h",
+              "RelativeDocumentMoniker": "CampusGuide.h",
+              "ToolTip": "D:\\S\\Campus_Guide_System\\SummerSem_project\\CampusGuide.h",
+              "RelativeToolTip": "CampusGuide.h",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAAAGwAAAAEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-07-15T07:07:11.86Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

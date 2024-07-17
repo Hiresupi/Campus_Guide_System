@@ -28,70 +28,85 @@ public:
 		MENU = 666
 	};
 
-
+	// *
 	CampusGuide();
 
 	//菜单项
 	int menu();
+
+	// *
 	void run();
 
 	void placeSB(string s, int x, int y);
 
 	void ShowPic();
 
+	// 热门景点速查
 	bool searchNshow();
 
+	// 展示地图
 	int ShowMap();
 
+	// 展示景点信息表格
 	void showSightTable(Sights& s);
 
+	// 展示设施列表
 	void showTableSet(Sights& s, int Page);
 
+	// 搜索设施算法
 	void searchFacility(MatGraph& g, int page, int id, vector<string>& svec, vector<int>& ivec);
 
+	// 展示景点信息
 	void ShowInfo(int &signal);
 
 
-	//路径功能
+	// *Floyd算法
 	void Floyd(MatGraph& g, vector<vector<int>>& A, vector<vector<int>>& path);
 
+	// 最短路径查询
 	int FindShort(MatGraph& g, int src, int dst, vector<int>& distVec);
 
+	// 生成路径
 	vector<int> Dispath(vector<vector<int>> A, vector<vector<int>> path, int n, int i, int j);
 
+	// 展示所有路径
 	void ShowAllRoute();
 
-	//int NavigateStartHint();
-
-	//int NavigateEndHint();
-
+	// 操作提示
 	int  NavigateHint(string s="请选择出发景点");
 
+	// 画最短路线
 	void drawLine(int &start, int &end, vector<int>& distV);
 
-
+	// 管理员入口
 	bool Administrate(int & routeBuild,bool & alreadyAdd,int &sightDeleted,bool &alreadyDelete);
-
-	void addRoutes(int src, int dst, string w);
-
-
 
 	void drawbackground();
 
+	// 部件状态循环
 	void eventLoop();
 
+	// 更新图状态
 	void updateMatGraph(int eCnt, int nCnt);
 
 	void reminder();
 
+	// 读取景点
 	void readSights();
 
+	// 读取路线
 	int readRoutes();
 
+	// 增加景点
 	void addSights(string sightStr,int x,int y);
 
+	// 增加路线
+	void addRoutes(int src, int dst, string w);
+
+	// 删除景点
 	void deteleSights(int id);
 
+	// 将数据保存到文件
 	void saveToFile();
 
 private:
